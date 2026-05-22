@@ -60,6 +60,14 @@ html.dark * {
   scrollbar-color: #1e293b transparent;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .leaflet-container {
   height: 400px;
   width: 100%;

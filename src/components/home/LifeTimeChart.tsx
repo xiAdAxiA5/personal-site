@@ -141,13 +141,10 @@ export default function LifeTimeChart() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center mb-4"
+          className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
           生命时间图
         </motion.h2>
-        <p className="text-center text-gray-400 dark:text-gray-500 mb-12">
-          每天24小时的时间分配
-        </p>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}

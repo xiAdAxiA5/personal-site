@@ -10,15 +10,6 @@ export interface SocialPlatform {
 
 export const socialPlatforms: SocialPlatform[] = [
   {
-    id: 'github',
-    name: 'GitHub',
-    url: 'https://github.com/xiAdAxiA5',
-    icon: 'github',
-    followerCount: 0,
-    color: '#6e5494',
-    videoThumbnails: [],
-  },
-  {
     id: 'bilibili',
     name: 'Bilibili',
     url: 'https://space.bilibili.com/507685526',
@@ -50,6 +41,33 @@ export const socialPlatforms: SocialPlatform[] = [
     icon: 'music',
     followerCount: 0,
     color: '#111111',
+    videoThumbnails: [],
+  },
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    url: 'https://www.instagram.com/xiadaxia111/',
+    icon: 'camera',
+    followerCount: 0,
+    color: '#E4405F',
+    videoThumbnails: [],
+  },
+  {
+    id: 'tiktok',
+    name: 'TikTok',
+    url: 'https://www.tiktok.com/@kieran_xia',
+    icon: 'music',
+    followerCount: 0,
+    color: '#00f2ea',
+    videoThumbnails: [],
+  },
+  {
+    id: 'x',
+    name: 'X',
+    url: 'https://x.com/daxiameric28460',
+    icon: 'twitter',
+    followerCount: 0,
+    color: '#000000',
     videoThumbnails: [],
   },
 ];

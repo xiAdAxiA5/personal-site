@@ -66,11 +66,10 @@ export default function Music3D() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center mb-4"
+          className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
-          喜欢的音乐
+          Music
         </motion.h2>
-        <p className="text-center text-gray-400 dark:text-gray-500 mb-12">旋转查看我的唱片收藏</p>
 
         <div className="h-[600px] bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden">
           <Canvas camera={{ position: [0, 2, 10], fov: 45 }}>
