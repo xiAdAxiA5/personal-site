@@ -72,7 +72,7 @@ export default function Music3D() {
         </motion.h2>
         <p className="text-center text-gray-400 dark:text-gray-500 mb-12">旋转查看我的唱片收藏</p>
 
-        <div className="h-[600px] bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden">
+        <div className="h-[600px] bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden">
           <Canvas camera={{ position: [0, 2, 10], fov: 45 }}>
             <ambientLight intensity={0.4} />
             <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={1} castShadow />
@@ -96,7 +96,7 @@ export default function Music3D() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-border-dark"
+              className="flex items-center gap-3 p-3 rounded-xl bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark"
             >
               <img src={album.cover} alt={album.title} className="w-14 h-14 rounded-lg object-cover" />
               <div>

@@ -44,7 +44,7 @@ export default function Guestbook() {
         <p className="text-gray-400 dark:text-gray-500 mb-12">留下你的足迹，分享你的想法</p>
 
         {/* Form */}
-        <div className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 mb-8">
+        <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 mb-8">
           <h2 className="text-lg font-semibold dark:text-white mb-4 flex items-center gap-2">
             <MessageCircle size={20} className="text-primary" /> 写留言
           </h2>
@@ -91,7 +91,7 @@ export default function Guestbook() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-border-dark p-5"
+                className="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-border-dark p-5"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">

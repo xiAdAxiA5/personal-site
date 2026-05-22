@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion';
 import { socialPlatforms } from '../../data/social';
-import { GitFork, Tv, Play, ExternalLink, MessageSquare, Pencil, type LucideIcon } from 'lucide-react';
+import { GitFork, Tv, Play, ExternalLink, Music2, type LucideIcon } from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
   github: GitFork,
   bilibili: Tv,
   youtube: Play,
   video: Play,
-  twitter: MessageSquare,
-  edit: Pencil,
+  twitter: ExternalLink,
+  edit: ExternalLink,
+  music: Music2,
 };
 
 export default function SocialMediaCards() {
@@ -23,7 +24,7 @@ export default function SocialMediaCards() {
         >
           自媒体平台
         </motion.h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {socialPlatforms.map((platform, i) => {
             const Icon = iconMap[platform.icon] || ExternalLink;
             return (
@@ -36,11 +37,11 @@ export default function SocialMediaCards() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                whileHover={{ y: -6, scale: 1.03 }}
-                className="group relative bg-white dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-all duration-300 overflow-hidden"
+                whileHover={{ y: -8, scale: 1.12, transition: { type: 'spring', stiffness: 400, damping: 20 } }}
+                className="group relative bg-surface-light dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-all duration-150 overflow-hidden"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                      style={{ background: `radial-gradient(300px circle at center, ${platform.color}15, transparent)` }} />
 
                 <div className="relative z-10 text-center">
@@ -50,19 +51,8 @@ export default function SocialMediaCards() {
                       <Icon size={24} />
                     </span>
                   </div>
-                  <h3 className="font-semibold text-sm mb-1 dark:text-white">{platform.name}</h3>
-                  <p className="text-xs text-gray-400">{platform.followerCount.toLocaleString()} 粉丝</p>
+                  <h3 className="font-semibold text-sm dark:text-white">{platform.name}</h3>
                 </div>
-
-                {/* Preview thumbnails on hover */}
-                {platform.videoThumbnails.length > 0 && (
-                  <div className="absolute inset-0 bg-white/95 dark:bg-gray-900/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-2 p-3 overflow-hidden">
-                    <p className="text-xs font-medium text-center text-gray-500 dark:text-gray-400">精选视频</p>
-                    {platform.videoThumbnails.slice(0, 3).map((thumb, j) => (
-                      <img key={j} src={thumb} alt="" className="w-full h-12 object-cover rounded-lg" />
-                    ))}
-                  </div>
-                )}
               </motion.a>
             );
           })}

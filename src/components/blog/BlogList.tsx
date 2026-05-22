@@ -35,13 +35,13 @@ export default function BlogList() {
           placeholder="搜索文章..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
+          className="flex-1 px-4 py-3 rounded-xl bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-border-dark focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
         />
 
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="px-4 py-3 rounded-xl bg-white dark:bg-surface-dark border border-gray-200 dark:border-border-dark focus:border-primary outline-none transition-all dark:text-white"
+          className="px-4 py-3 rounded-xl bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-border-dark focus:border-primary outline-none transition-all dark:text-white"
         >
           <option value="">全部分类</option>
           {categories.map((cat) => (
@@ -88,7 +88,7 @@ export default function BlogList() {
               transition={{ delay: i * 0.05 }}
             >
               <Link to={`/blog/${post.slug}`}>
-                <div className="h-full bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+                <div className="h-full bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 hover:border-primary/30 hover:shadow-lg transition-all duration-300">
                   <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-3 inline-block">
                     {post.category}
                   </span>

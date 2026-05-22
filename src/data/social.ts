@@ -12,18 +12,18 @@ export const socialPlatforms: SocialPlatform[] = [
   {
     id: 'github',
     name: 'GitHub',
-    url: 'https://github.com/yourname',
+    url: 'https://github.com/xiAdAxiA5',
     icon: 'github',
-    followerCount: 1280,
+    followerCount: 0,
     color: '#6e5494',
     videoThumbnails: [],
   },
   {
     id: 'bilibili',
     name: 'Bilibili',
-    url: 'https://space.bilibili.com/yourid',
+    url: 'https://space.bilibili.com/507685526',
     icon: 'video',
-    followerCount: 5600,
+    followerCount: 0,
     color: '#fb7299',
     videoThumbnails: [
       'https://picsum.photos/seed/v1/320/180',
@@ -34,9 +34,9 @@ export const socialPlatforms: SocialPlatform[] = [
   {
     id: 'youtube',
     name: 'YouTube',
-    url: 'https://youtube.com/@yourname',
+    url: 'https://www.youtube.com/@xiAdAxiA5',
     icon: 'youtube',
-    followerCount: 3200,
+    followerCount: 0,
     color: '#ff0000',
     videoThumbnails: [
       'https://picsum.photos/seed/v4/320/180',
@@ -44,24 +44,12 @@ export const socialPlatforms: SocialPlatform[] = [
     ],
   },
   {
-    id: 'twitter',
-    name: 'Twitter / X',
-    url: 'https://x.com/yourname',
-    icon: 'twitter',
-    followerCount: 890,
-    color: '#1da1f2',
-    videoThumbnails: [],
-  },
-  {
-    id: 'zhihu',
-    name: '知乎',
-    url: 'https://zhihu.com/people/yourid',
-    icon: 'edit',
-    followerCount: 2100,
-    color: '#0066ff',
+    id: 'douyin',
+    name: '抖音',
+    url: 'https://v.douyin.com/HY-1bhG_0y0/',
+    icon: 'music',
+    followerCount: 0,
+    color: '#111111',
     videoThumbnails: [],
   },
 ];
-
-export const getTotalFollowers = (): number =>
-  socialPlatforms.reduce((sum, p) => sum + p.followerCount, 0);

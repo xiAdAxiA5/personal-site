@@ -41,13 +41,13 @@ export default function ExperienceTimeline() {
 
               {/* Content */}
               <div className={`ml-20 md:ml-0 md:w-[calc(50%-2rem)] ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                <div className="bg-white dark:bg-surface-dark rounded-xl p-6 border border-gray-100 dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
+                <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 border border-gray-100 dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
                   <span className="text-xs font-medium text-primary uppercase tracking-wider">
                     {exp.startDate} — {exp.endDate}
                   </span>
-                  <h3 className="text-lg font-bold mt-1 dark:text-white">{exp.title}</h3>
+                  <h3 className="text-lg font-bold mt-1 dark:text-white">{exp.organization}</h3>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
-                    {exp.organization} · {exp.location}
+                    {exp.title}{exp.location ? ` · ${exp.location}` : ''}
                   </p>
                   <p className="text-gray-600 dark:text-gray-300 mt-2 text-sm">{exp.description}</p>
                   <div className="flex flex-wrap gap-2 mt-3">

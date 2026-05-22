@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: #6366f1;
   --color-primary-dark: #4f46e5;
   --color-accent: #06b6d4;
-  --color-bg-light: #f8fafc;
+  --color-bg-light: #f5f1ea;
   --color-bg-dark: #0f172a;
-  --color-surface-light: #ffffff;
+  --color-surface-light: #fdfaf5;
   --color-surface-dark: #1e293b;
   --color-text-light: #1e293b;
   --color-text-dark: #f1f5f9;
@@ -29,9 +31,34 @@ body {
 }
 
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: transparent;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+html.dark * {
+  scrollbar-color: #1e293b transparent;
+}
 
 .leaflet-container {
   height: 400px;

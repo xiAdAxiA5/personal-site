@@ -31,7 +31,7 @@ export default function HoverPreview({ children, preview }: Props) {
             transition={{ duration: 0.2 }}
             className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 z-50 pointer-events-none"
           >
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden min-w-[280px]">
+            <div className="bg-surface-light dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden min-w-[280px]">
               {preview}
             </div>
           </motion.div>

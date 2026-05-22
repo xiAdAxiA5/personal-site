@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
-import { useFollowerCount } from '../../hooks/useFollowerCount';
 import { Code2 } from 'lucide-react';
 
 export default function HeroSection() {
-  const totalFollowers = useFollowerCount();
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -45,7 +43,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-purple-500 bg-clip-text text-transparent"
         >
-          {profile.name}
+          {profile.name} {profile.nameEn}
         </motion.h1>
 
         <motion.p
@@ -79,26 +77,8 @@ export default function HeroSection() {
               {tag}
             </span>
           ))}
-          <span className="px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary/10 to-accent/10 text-primary border border-primary/20">
-            全网粉丝 {totalFollowers.toLocaleString()}+
-          </span>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600 flex items-start justify-center p-1"
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600" />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );

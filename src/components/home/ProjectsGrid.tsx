@@ -18,6 +18,9 @@ export default function ProjectsGrid() {
         </motion.h2>
         <p className="text-center text-gray-400 dark:text-gray-500 mb-12">我参与和构建的一些项目</p>
 
+        {projects.length === 0 && (
+          <p className="text-center text-gray-400 dark:text-gray-500 py-12">暂无项目</p>
+        )}
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
             <motion.div
@@ -42,7 +45,7 @@ export default function ProjectsGrid() {
                   </div>
                 }
               >
-                <div className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden hover:border-primary/30 transition-all duration-300">
+                <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden hover:border-primary/30 transition-all duration-300">
                   <div className="relative overflow-hidden">
                     <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                     {project.featured && (

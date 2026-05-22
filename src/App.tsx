@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
+import { FollowerProvider } from './context/FollowerContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
@@ -11,7 +12,8 @@ import GuestbookPage from './pages/GuestbookPage';
 export default function App() {
   return (
     <ThemeProvider>
-      <HashRouter>
+      <FollowerProvider>
+        <HashRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
@@ -23,7 +25,8 @@ export default function App() {
             <Route path="guestbook" element={<GuestbookPage />} />
           </Route>
         </Routes>
-      </HashRouter>
+        </HashRouter>
+      </FollowerProvider>
     </ThemeProvider>
   );
 }

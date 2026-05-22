@@ -20,7 +20,7 @@ export default function TravelMap() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden p-1"
+          className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden p-1"
         >
           {/* World map SVG placeholder */}
           <div className="relative w-full h-[400px] bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden">
@@ -86,7 +86,7 @@ export default function TravelMap() {
         <div className="flex flex-wrap justify-center gap-3 mt-8">
           {travelPlaces.map((place) => (
             <span key={place.id}
-                  className="px-4 py-2 rounded-full text-sm bg-white dark:bg-surface-dark border border-gray-100 dark:border-border-dark text-gray-600 dark:text-gray-300 hover:border-primary/30 transition-colors">
+                  className="px-4 py-2 rounded-full text-sm bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark text-gray-600 dark:text-gray-300 hover:border-primary/30 transition-colors">
               📍 {place.name}
             </span>
           ))}

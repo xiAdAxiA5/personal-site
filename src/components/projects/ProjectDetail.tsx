@@ -26,7 +26,7 @@ export default function ProjectDetail() {
         <ArrowLeft size={18} /> 返回项目
       </Link>
 
-      <div className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden">
+      <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden">
         <img src={project.image} alt={project.title} className="w-full h-64 object-cover" />
 
         <div className="p-8">

@@ -24,13 +24,14 @@ export default function TechStack() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat) => {
             const catSkills = skills.filter((s) => s.category === cat.key);
+            if (catSkills.length === 0) return null;
             return (
               <motion.div
                 key={cat.key}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark"
+                className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark"
               >
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">{cat.label}</h3>
                 <div className="space-y-4">

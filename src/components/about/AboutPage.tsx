@@ -14,7 +14,7 @@ export default function AboutPage() {
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="md:col-span-1">
-            <div className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 text-center sticky top-24">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 text-center sticky top-24">
               {profile.avatar ? (
                 <img src={profile.avatar} alt={profile.name} className="w-32 h-32 rounded-full mx-auto mb-4" />
               ) : (
@@ -23,6 +23,7 @@ export default function AboutPage() {
                 </div>
               )}
               <h2 className="text-2xl font-bold dark:text-white">{profile.name}</h2>
+              <p className="text-sm text-gray-400 mb-1">{profile.nameEn}</p>
               <p className="text-primary font-medium">{profile.title}</p>
               <p className="text-sm text-gray-400 mt-2">{profile.tagline}</p>
 
@@ -41,7 +42,7 @@ export default function AboutPage() {
           </div>
 
           <div className="md:col-span-2 space-y-8">
-            <div className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-8">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-8">
               <h2 className="text-xl font-bold dark:text-white mb-4">个人简介</h2>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{profile.bio}</p>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed mt-4">
@@ -51,7 +52,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-8">
+            <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-8">
               <h2 className="text-xl font-bold dark:text-white mb-4">工作理念</h2>
               <div className="grid gap-4">
                 {[

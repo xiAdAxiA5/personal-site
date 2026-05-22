@@ -1,5 +1,6 @@
 export interface Profile {
   name: string;
+  nameEn: string;
   title: string;
   tagline: string;
   bio: string;
@@ -8,10 +9,11 @@ export interface Profile {
 }
 
 export const profile: Profile = {
-  name: 'Your Name',
-  title: 'Full-Stack Developer',
-  tagline: '构建优雅、高性能的数字体验',
-  bio: '热爱技术、设计和开源的全栈开发者。专注于 React、TypeScript 和 Node.js 生态，喜欢探索前沿技术并将其转化为实用的产品。',
-  avatar: '',
-  tags: ['开发者', '开源贡献者', '技术博主', '终身学习者'],
+  name: '侠大虾',
+  nameEn: 'KieranXia',
+  title: 'Digital Settler',
+  tagline: '永不说脏话之人 · 试图论迹也论心之人',
+  bio: '临床医学背景的数字游民，在代码与生活的边界探索可能。',
+  avatar: './avatar.png',
+  tags: ['健身爱好者', '音乐爱好者', '游戏爱好者', '极简主义者', '*NTJ/双子座'],
 };

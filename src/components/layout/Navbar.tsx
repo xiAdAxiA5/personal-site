@@ -17,7 +17,7 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-bg-dark/80 backdrop-blur-xl border-b border-gray-100 dark:border-border-dark transition-colors duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-light/85 dark:bg-bg-dark/80 backdrop-blur-xl border-b border-gray-100 dark:border-border-dark transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-bold text-primary tracking-tight">
@@ -64,7 +64,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-bg-dark border-t border-gray-100 dark:border-border-dark"
+            className="md:hidden bg-surface-light dark:bg-bg-dark border-t border-gray-100 dark:border-border-dark"
           >
             <div className="px-4 py-3 space-y-1">
               {navItems.map((item) => (

@@ -34,7 +34,7 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 p-8 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-all duration-300"
+              className="flex flex-col items-center gap-3 p-8 rounded-2xl bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-all duration-300"
             >
               <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
                 <item.icon size={24} className="text-primary" />

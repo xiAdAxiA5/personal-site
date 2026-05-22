@@ -38,7 +38,7 @@ export default function BlogDetail() {
         </div>
       </header>
 
-      <div className="prose prose-gray dark:prose-invert max-w-none bg-white dark:bg-surface-dark rounded-2xl p-8 border border-gray-100 dark:border-border-dark">
+      <div className="prose prose-gray dark:prose-invert max-w-none bg-surface-light dark:bg-surface-dark rounded-2xl p-8 border border-gray-100 dark:border-border-dark">
         <ReactMarkdown>{post.content}</ReactMarkdown>
       </div>
     </motion.article>
