@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { travelPlaces } from '../../data/travel';
 import { MapPin } from 'lucide-react';
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function TravelMap() {
   return (
     <section className="py-20 px-4 bg-gray-50/50 dark:bg-gray-900/30 transition-colors duration-300">
@@ -10,6 +12,7 @@ export default function TravelMap() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold text-center mb-4"
         >
           去过的地方
@@ -17,16 +20,14 @@ export default function TravelMap() {
         <p className="text-center text-gray-400 dark:text-gray-500 mb-12">在世界各地留下的足迹</p>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden p-1"
         >
-          {/* World map SVG placeholder */}
           <div className="relative w-full h-[400px] bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden">
-            {/* Dot matrix world map */}
             <svg viewBox="0 0 1000 500" className="w-full h-full opacity-20 dark:opacity-30">
-              {/* Simplified world map dots */}
               <circle cx="200" cy="150" r="3" fill="#6366f1" />
               <circle cx="220" cy="145" r="3" fill="#6366f1" />
               <circle cx="240" cy="140" r="3" fill="#6366f1" />
@@ -53,9 +54,7 @@ export default function TravelMap() {
               <circle cx="680" cy="380" r="3" fill="#6366f1" />
             </svg>
 
-            {/* Location pins */}
             {travelPlaces.map((place, i) => {
-              // Simple projection from lat/lng to pixel coords (approximate)
               const x = ((place.lng + 180) / 360) * 100;
               const y = ((90 - place.lat) / 180) * 100;
               return (
@@ -67,7 +66,7 @@ export default function TravelMap() {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ delay: i * 0.15 }}
+                    transition={{ ...springGentle, delay: i * 0.1 }}
                   >
                     <MapPin size={20} className="text-primary hover:text-accent transition-colors fill-primary/30" />
                   </motion.div>
@@ -85,10 +84,14 @@ export default function TravelMap() {
 
         <div className="flex flex-wrap justify-center gap-3 mt-8">
           {travelPlaces.map((place) => (
-            <span key={place.id}
-                  className="px-4 py-2 rounded-full text-sm bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark text-gray-600 dark:text-gray-300 hover:border-primary/30 transition-colors">
+            <motion.span
+              key={place.id}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="px-4 py-2 rounded-full text-sm bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark text-gray-600 dark:text-gray-300 hover:border-primary/30 transition-colors cursor-pointer"
+            >
               📍 {place.name}
-            </span>
+            </motion.span>
           ))}
         </div>
       </div>

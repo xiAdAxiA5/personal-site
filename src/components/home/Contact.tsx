@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Mail, MessageCircle, Send } from 'lucide-react';
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function Contact() {
   return (
     <section className="py-20 px-4">
@@ -9,6 +11,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold mb-4"
         >
           联系我
@@ -19,6 +22,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="grid md:grid-cols-3 gap-6 mb-12"
         >
           {[
@@ -32,9 +36,10 @@ export default function Contact() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 p-8 rounded-2xl bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-all duration-300"
+              transition={{ ...springGentle, delay: i * 0.1 }}
+              whileHover={{ y: -3, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex flex-col items-center gap-3 p-8 rounded-2xl bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-colors duration-300 cursor-pointer"
             >
               <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
                 <item.icon size={24} className="text-primary" />

@@ -13,6 +13,8 @@ const iconMap: Record<string, LucideIcon> = {
   camera: Camera,
 };
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function SocialMediaCards() {
   return (
     <section className="py-20 px-4">
@@ -21,6 +23,7 @@ export default function SocialMediaCards() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
           自媒体平台
@@ -37,12 +40,13 @@ export default function SocialMediaCards() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                whileHover={{ y: -8, scale: 1.12, transition: { type: 'spring', stiffness: 400, damping: 20 } }}
-                className="group relative bg-surface-light dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-all duration-150 overflow-hidden"
+                transition={{ ...springGentle, delay: i * 0.06 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+                className="group relative bg-surface-light dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark hover:border-primary/30 transition-colors duration-200 overflow-hidden cursor-pointer"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                      style={{ background: `radial-gradient(300px circle at center, ${platform.color}15, transparent)` }} />
 
                 <div className="relative z-10 text-center">

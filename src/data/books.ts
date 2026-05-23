@@ -92,6 +92,15 @@ export const books: Book[] = [
   },
   {
     id: 'web-5',
+    title: '剑来',
+    author: '烽火戏诸侯',
+    cover: '/books/剑来.jpeg',
+    rating: 0,
+    notes: '',
+    category: 'webnovel',
+  },
+  {
+    id: 'web-6',
     title: '神秘复苏',
     author: '佛前献花',
     cover: '/books/神秘复苏.png',

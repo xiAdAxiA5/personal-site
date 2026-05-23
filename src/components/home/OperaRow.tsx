@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { operas } from '../../data/operas';
 import { X } from 'lucide-react';
 
+const springBouncy = { type: 'spring' as const, stiffness: 350, damping: 30, mass: 1 };
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 const categories = [
   { key: 'opera' },
   { key: 'musical' },
@@ -17,11 +20,11 @@ export default function OperaRow() {
 
   const onEnter = (id: string) => {
     if (leaveRef.current !== null) clearTimeout(leaveRef.current);
-    enterRef.current = setTimeout(() => setHovered(id), 250);
+    enterRef.current = setTimeout(() => setHovered(id), 200);
   };
   const onLeave = () => {
     if (enterRef.current !== null) clearTimeout(enterRef.current);
-    leaveRef.current = setTimeout(() => setHovered(null), 100);
+    leaveRef.current = setTimeout(() => setHovered(null), 80);
   };
 
   const selectedOpera = operas.find((o) => o.id === selected);
@@ -33,6 +36,7 @@ export default function OperaRow() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
           Opera
@@ -61,14 +65,15 @@ export default function OperaRow() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
               className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
               onClick={() => setSelected(null)}
             >
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                initial={{ scale: 0.94, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.94, opacity: 0, y: 20 }}
+                transition={springBouncy}
                 onClick={(e) => e.stopPropagation()}
                 className="bg-surface-light dark:bg-gray-800 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl"
               >
@@ -82,12 +87,14 @@ export default function OperaRow() {
                     <h3 className="text-lg font-bold dark:text-white">{selectedOpera.title}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{selectedOpera.composer}</p>
                   </div>
-                  <button
+                  <motion.button
                     onClick={() => setSelected(null)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shrink-0"
                   >
                     <X size={18} className="text-gray-400" />
-                  </button>
+                  </motion.button>
                 </div>
                 <div className="p-5">
                   <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
@@ -146,12 +153,13 @@ function ScrollRow({
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: i * 0.06 }}
-          whileHover={{ scale: 1.05, y: -4 }}
+          transition={{ ...springGentle, delay: i * 0.05 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => onClick(opera.id)}
           onMouseEnter={() => onEnter(opera.id)}
           onMouseLeave={onLeave}
-          className="group relative shrink-0 w-36 bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-border-dark overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+          className="group relative shrink-0 w-36 bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-border-dark overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer"
           style={{ scrollSnapAlign: 'start' }}
         >
           <div className="aspect-[2/3] overflow-hidden">
@@ -169,10 +177,10 @@ function ScrollRow({
           <AnimatePresence>
             {hovered === opera.id && (
               <motion.div
-                initial={{ opacity: 0, y: 8, scale: 0.92 }}
+                initial={{ opacity: 0, y: 8, scale: 0.94 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 4, scale: 0.96 }}
-                transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+                transition={springBouncy}
                 className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-50 pointer-events-none"
               >
                 <div className="bg-surface-light dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden w-64 text-left">

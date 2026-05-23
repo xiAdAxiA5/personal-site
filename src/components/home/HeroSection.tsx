@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { Code2 } from 'lucide-react';
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function HeroSection() {
 
   return (
@@ -23,7 +25,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 1 }}
           className="mb-8"
         >
           {profile.avatar ? (
@@ -40,7 +42,7 @@ export default function HeroSection() {
         <motion.h1
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          transition={{ ...springGentle, delay: 0.1 }}
           className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-purple-500 bg-clip-text text-transparent"
         >
           {profile.name} {profile.nameEn}
@@ -49,7 +51,7 @@ export default function HeroSection() {
         <motion.p
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
+          transition={{ ...springGentle, delay: 0.2 }}
           className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4"
         >
           {profile.title}
@@ -58,7 +60,7 @@ export default function HeroSection() {
         <motion.p
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
+          transition={{ ...springGentle, delay: 0.3 }}
           className="text-lg text-gray-400 dark:text-gray-500 max-w-2xl mx-auto mb-8"
         >
           {profile.tagline}
@@ -68,14 +70,19 @@ export default function HeroSection() {
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
+          transition={{ ...springGentle, delay: 0.4 }}
           className="flex flex-wrap justify-center gap-3 mb-6"
         >
-          {profile.tags.map((tag) => (
-            <span key={tag}
-                  className="px-4 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20">
+          {profile.tags.map((tag, i) => (
+            <motion.span
+              key={tag}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ ...springGentle, delay: 0.45 + i * 0.05 }}
+              className="px-4 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20"
+            >
               {tag}
-            </span>
+            </motion.span>
           ))}
         </motion.div>
 

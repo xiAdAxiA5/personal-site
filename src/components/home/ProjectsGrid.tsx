@@ -4,6 +4,8 @@ import { projects } from '../../data/projects';
 import { ExternalLink, GitFork } from 'lucide-react';
 import HoverPreview from '../ui/HoverPreview';
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function ProjectsGrid() {
   return (
     <section className="py-20 px-4">
@@ -12,6 +14,7 @@ export default function ProjectsGrid() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold text-center mb-4"
         >
           项目作品
@@ -28,7 +31,7 @@ export default function ProjectsGrid() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ ...springGentle, delay: i * 0.08 }}
             >
               <HoverPreview
                 preview={
@@ -45,7 +48,11 @@ export default function ProjectsGrid() {
                   </div>
                 }
               >
-                <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden hover:border-primary/30 transition-all duration-300">
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark overflow-hidden hover:border-primary/30 transition-all duration-300 cursor-pointer"
+                >
                   <div className="relative overflow-hidden">
                     <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
                     {project.featured && (
@@ -66,14 +73,26 @@ export default function ProjectsGrid() {
                         ))}
                       </div>
                       <div className="flex items-center gap-2">
-                        <a href={project.repoUrl} target="_blank" rel="noopener noreferrer"
-                           className="p-2 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <motion.a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        >
                           <GitFork size={18} />
-                        </a>
-                        <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                           className="p-2 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        </motion.a>
+                        <motion.a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.15 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        >
                           <ExternalLink size={18} />
-                        </a>
+                        </motion.a>
                       </div>
                     </div>
                     <Link
@@ -83,7 +102,7 @@ export default function ProjectsGrid() {
                       查看详情 →
                     </Link>
                   </div>
-                </div>
+                </motion.div>
               </HoverPreview>
             </motion.div>
           ))}

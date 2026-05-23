@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 interface Category {
   label: string;
-  pct: number; // percentage 0-100
+  pct: number;
   color: string;
 }
 
@@ -32,27 +32,23 @@ interface Region {
 function computeRegions(): Region[] {
   const grid = new Int16Array(TOTAL_CELLS).fill(-1);
 
-  // Target cell count per category
   const targets = categories.map((c) => Math.round((c.pct / 100) * TOTAL_CELLS));
-  // Fix rounding so sum matches TOTAL_CELLS
   const diff = TOTAL_CELLS - targets.reduce((a, b) => a + b, 0);
-  targets[2] += diff; // adjust largest category (Study)
+  targets[2] += diff;
 
-  // Seed positions — one per category, spread across the frame
   const seeds = [
-    { col: Math.round(COLS * 0.22), row: Math.round(ROWS * 0.22) },  // Social & Family
-    { col: Math.round(COLS * 0.72), row: Math.round(ROWS * 0.25) },  // Game
-    { col: Math.round(COLS * 0.45), row: Math.round(ROWS * 0.50) },  // Study
-    { col: Math.round(COLS * 0.72), row: Math.round(ROWS * 0.72) },  // Music
-    { col: Math.round(COLS * 0.18), row: Math.round(ROWS * 0.78) },  // Coding
-    { col: Math.round(COLS * 0.55), row: Math.round(ROWS * 0.65) },  // Thinking
+    { col: Math.round(COLS * 0.22), row: Math.round(ROWS * 0.22) },
+    { col: Math.round(COLS * 0.72), row: Math.round(ROWS * 0.25) },
+    { col: Math.round(COLS * 0.45), row: Math.round(ROWS * 0.50) },
+    { col: Math.round(COLS * 0.72), row: Math.round(ROWS * 0.72) },
+    { col: Math.round(COLS * 0.18), row: Math.round(ROWS * 0.78) },
+    { col: Math.round(COLS * 0.55), row: Math.round(ROWS * 0.65) },
   ];
 
   const idx = (r: number, c: number) => r * COLS + c;
   const inBounds = (r: number, c: number) => r >= 0 && r < ROWS && c >= 0 && c < COLS;
   const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
 
-  // Place seeds
   const frontiers: [number, number][][] = categories.map(() => []);
   const counts = new Array(categories.length).fill(0);
 
@@ -60,21 +56,18 @@ function computeRegions(): Region[] {
     const { col, row } = seeds[i];
     grid[idx(row, col)] = i;
     counts[i] = 1;
-    // Add neighbors to frontier
     for (const [dr, dc] of dirs) {
       const nr = row + dr, nc = col + dc;
       if (inBounds(nr, nc) && grid[idx(nr, nc)] === -1) {
-        grid[idx(nr, nc)] = -2; // mark as in-frontier
+        grid[idx(nr, nc)] = -2;
         frontiers[i].push([nr, nc]);
       }
     }
   }
 
-  // Region growing with shuffled expansion for organic boundaries
   const active = new Set(categories.map((_, i) => i));
 
   while (active.size > 0) {
-    // Pick a random active category weighted by remaining need
     const candidates = [...active].filter((c) => counts[c] < targets[c]);
     if (candidates.length === 0) break;
 
@@ -85,17 +78,15 @@ function computeRegions(): Region[] {
       continue;
     }
 
-    // Pick a random frontier cell
     const fi = Math.floor(Math.random() * frontiers[c].length);
     const [fr, fc] = frontiers[c][fi];
     frontiers[c].splice(fi, 1);
 
-    if (grid[idx(fr, fc)] !== -2) continue; // already claimed
+    if (grid[idx(fr, fc)] !== -2) continue;
 
     grid[idx(fr, fc)] = c;
     counts[c]++;
 
-    // Add new neighbors to frontier
     for (const [dr, dc] of dirs) {
       const nr = fr + dr, nc = fc + dc;
       if (inBounds(nr, nc) && grid[idx(nr, nc)] === -1) {
@@ -109,7 +100,6 @@ function computeRegions(): Region[] {
     }
   }
 
-  // Build merged rect paths + centroids per category
   return categories.map((_, c) => {
     let d = '';
     let sx = 0, sy = 0, n = 0;
@@ -131,6 +121,8 @@ function computeRegions(): Region[] {
   });
 }
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function LifeTimeChart() {
   const regions = useMemo(() => computeRegions(), []);
 
@@ -141,15 +133,17 @@ export default function LifeTimeChart() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
           生命时间图
         </motion.h2>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="bg-surface-light dark:bg-surface-dark rounded-2xl p-6 border border-gray-100 dark:border-border-dark"
         >
           <div className="relative w-full mx-auto" style={{ aspectRatio: `${W}/${H}` }}>
@@ -193,7 +187,7 @@ export default function LifeTimeChart() {
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
+                      transition={{ duration: 0.5, delay: i * 0.08, ease: [0.32, 0.72, 0, 1] }}
                     />
                   ) : null,
                 )}

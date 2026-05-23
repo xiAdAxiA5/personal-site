@@ -20,8 +20,8 @@ export default function Home() {
       <TechStack />
       <LifeTimeChart />
       <Books3D />
-      <OperaRow />
       <Music3D />
+      <OperaRow />
       <TravelMap />
       <Contact />
     </>

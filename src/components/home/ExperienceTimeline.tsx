@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { experiences } from '../../data/experience';
 import { Briefcase, GraduationCap } from 'lucide-react';
 
+const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+
 export default function ExperienceTimeline() {
   return (
     <section className="py-20 px-4 bg-gray-50/50 dark:bg-gray-900/30 transition-colors duration-300">
@@ -10,6 +12,7 @@ export default function ExperienceTimeline() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={springGentle}
           className="text-3xl md:text-4xl font-bold text-center mb-16"
         >
           求学与工作经历
@@ -25,7 +28,7 @@ export default function ExperienceTimeline() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ ...springGentle, delay: i * 0.08 }}
               className={`relative flex items-start mb-12 md:mb-16 ${
                 i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}
@@ -41,7 +44,10 @@ export default function ExperienceTimeline() {
 
               {/* Content */}
               <div className={`ml-20 md:ml-0 md:w-[calc(50%-2rem)] ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                <div className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 border border-gray-100 dark:border-border-dark shadow-sm hover:shadow-md transition-shadow">
+                <motion.div
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 border border-gray-100 dark:border-border-dark shadow-sm hover:shadow-md transition-shadow"
+                >
                   <span className="text-xs font-medium text-primary uppercase tracking-wider">
                     {exp.startDate} — {exp.endDate}
                   </span>
@@ -57,7 +63,7 @@ export default function ExperienceTimeline() {
                       </span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           ))}
