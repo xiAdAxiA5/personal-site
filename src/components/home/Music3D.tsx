@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { albums, type Album, type Track } from '../../data/music';
-import { ArrowLeft, Play, Pause, Volume2, VolumeX, SkipBack, SkipForward } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, X } from 'lucide-react';
 
 type View = 'browsing' | 'detail' | 'playing';
 
@@ -52,18 +52,16 @@ export default function MusicSection() {
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [lyrics, setLyrics] = useState<LyricLine[]>([]);
-  const [sectionVisible, setSectionVisible] = useState(true);
-  const sectionRef = useRef<HTMLElement>(null);
+  const [headingVisible, setHeadingVisible] = useState(true);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const audioRef = useRef<HTMLAudioElement>(new Audio());
   const dragRef = useRef<{ type: 'seek' | 'volume'; rect: DOMRect } | null>(null);
 
-  // Track section visibility for top bar player
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = headingRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => setSectionVisible(entry.isIntersecting),
-      { rootMargin: '-80px 0px 0px 0px' },
+      ([entry]) => setHeadingVisible(entry.isIntersecting),
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -215,6 +213,17 @@ export default function MusicSection() {
     audioRef.current.muted = !audioRef.current.muted;
   };
 
+  const handleClose = () => {
+    audioRef.current.pause();
+    audioRef.current.src = '';
+    setSelected(null);
+    setView('browsing');
+    setLyrics([]);
+    setDuration(0);
+    setCurrentTime(0);
+    setCurrentTrack(0);
+  };
+
   // Auto-advance tracks
   useEffect(() => {
     const audio = audioRef.current;
@@ -246,7 +255,6 @@ export default function MusicSection() {
   };
 
   const hasAudio = !!audioRef.current.src;
-  const showMiniPlayer = view === 'browsing' && selected && hasAudio;
 
   // Shared bar props
   const seekBarProps = {
@@ -262,7 +270,7 @@ export default function MusicSection() {
   }, -1);
   const currentLyricText = lyrics[activeLyricIndex]?.text ?? '';
 
-  const showTopBar = hasAudio && selected && !sectionVisible;
+  const showTopBar = hasAudio && selected && (view === 'browsing' || !headingVisible);
 
   return (
     <>
@@ -284,12 +292,14 @@ export default function MusicSection() {
             onPrev={handlePrevTrack}
             onNext={handleNextTrack}
             onClick={() => { setView('playing'); }}
+            onClose={handleClose}
           />
         )}
       </AnimatePresence>
-      <section ref={sectionRef} className="py-20 px-4">
+      <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
+          ref={headingRef}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -316,34 +326,6 @@ export default function MusicSection() {
             <div className="flex items-start justify-center pt-8">
               <Turntable view={view} selected={selected} isPlaying={isPlaying} />
             </div>
-            <AnimatePresence>
-              {showMiniPlayer && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20, height: 0 }}
-                  animate={{ opacity: 1, y: 0, height: 'auto' }}
-                  exit={{ opacity: 0, y: 20, height: 0 }}
-                  transition={springGentle}
-                  className="w-full mt-4 overflow-hidden"
-                >
-                  <MiniPlayer
-                    album={selected!}
-                    currentTrack={currentTrack}
-                    currentTime={currentTime}
-                    duration={duration}
-                    volume={volume}
-                    isMuted={isMuted}
-                    isPlaying={isPlaying}
-                    seekBarProps={seekBarProps}
-                    volumeBarProps={volumeBarProps}
-                    onToggleMute={handleToggleMute}
-                    onTogglePlay={handleMiniTogglePlay}
-                    onPrev={handlePrevTrack}
-                    onNext={handleNextTrack}
-                    onClick={() => { setView('playing'); }}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           <div className="flex-1 min-w-0 relative z-20">
@@ -413,6 +395,7 @@ function TopBarPlayer({
   onPrev,
   onNext,
   onClick,
+  onClose,
 }: {
   album: Album;
   currentTrack: number;
@@ -429,6 +412,7 @@ function TopBarPlayer({
   onPrev: () => void;
   onNext: () => void;
   onClick: () => void;
+  onClose: () => void;
 }) {
   const track = album.tracks[currentTrack];
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -439,9 +423,9 @@ function TopBarPlayer({
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: -80, opacity: 0 }}
       transition={{ type: 'spring', stiffness: 400, damping: 35, mass: 1 }}
-      className="fixed top-0 left-0 right-0 z-[100]"
+      className="fixed top-16 left-0 right-0 z-40"
     >
-      <div className="bg-white/75 dark:bg-gray-900/75 backdrop-blur-xl backdrop-saturate-[180%] border-b border-black/[0.06] dark:border-white/[0.06]">
+      <div className="relative bg-white/75 dark:bg-gray-900/75 backdrop-blur-xl backdrop-saturate-[180%] border-b border-black/[0.06] dark:border-white/[0.06]">
         <div className="max-w-6xl mx-auto px-4 h-11 flex items-center">
           {/* Left: album art + info */}
           <div
@@ -532,7 +516,18 @@ function TopBarPlayer({
               </div>
             </div>
           </div>
+
         </div>
+
+        {/* Close button — right edge of viewport */}
+        <motion.button
+          onClick={(e) => { e.stopPropagation(); onClose(); }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.85 }}
+          className="absolute right-[52px] top-1/2 -translate-y-1/2 p-1.5 text-black/35 dark:text-white/35 hover:text-black/70 dark:hover:text-white/70 transition-colors"
+        >
+          <X size={15} />
+        </motion.button>
       </div>
 
       {/* Progress bar — thin bottom edge */}
@@ -597,106 +592,6 @@ function Turntable({ view, selected, isPlaying }: { view: View; selected: Album 
         )}
       </AnimatePresence>
     </div>
-  );
-}
-
-function MiniPlayer({
-  album,
-  currentTrack,
-  currentTime,
-  duration,
-  volume,
-  isMuted,
-  isPlaying,
-  seekBarProps,
-  volumeBarProps,
-  onToggleMute,
-  onTogglePlay,
-  onPrev,
-  onNext,
-  onClick,
-}: {
-  album: Album;
-  currentTrack: number;
-  currentTime: number;
-  duration: number;
-  volume: number;
-  isMuted: boolean;
-  isPlaying: boolean;
-  seekBarProps: { onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void };
-  volumeBarProps: { onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void };
-  onToggleMute: () => void;
-  onTogglePlay: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-  onClick: () => void;
-}) {
-  const track = album.tracks[currentTrack];
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
-
-  return (
-    <motion.div
-      whileTap={{ scale: 0.98 }}
-      className="w-full bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-border-dark p-3 shadow-lg cursor-pointer"
-    >
-      <div onClick={onClick} className="flex items-center gap-3 mb-2">
-        <img src={album.cover} alt={album.title} className="w-10 h-10 rounded-md object-cover shadow-sm shrink-0" />
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold dark:text-white truncate">{track.title}</p>
-          <p className="text-[10px] text-gray-400 truncate">{album.artist}</p>
-        </div>
-        <motion.button
-          onClick={(e) => { e.stopPropagation(); onTogglePlay(); }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="p-1.5 rounded-full bg-primary text-white shrink-0"
-        >
-          {isPlaying ? <Pause size={14} fill="white" /> : <Play size={14} fill="white" className="ml-0.5" />}
-        </motion.button>
-      </div>
-
-      <div onClick={(e) => e.stopPropagation()}>
-        <motion.div
-          className="group relative h-1 bg-gray-200 dark:bg-gray-700 rounded-full cursor-pointer touch-none"
-          {...seekBarProps}
-        >
-          <div
-            className="absolute inset-y-0 left-0 bg-primary rounded-full pointer-events-none"
-            style={{ width: `${progress}%` }}
-          />
-          <div
-            className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md pointer-events-none"
-            style={{ left: `calc(${progress}% - 5px)` }}
-          />
-        </motion.div>
-        <div className="flex justify-between mt-1">
-          <span className="text-[10px] text-gray-400 tabular-nums">{formatTime(currentTime)}</span>
-          <span className="text-[10px] text-gray-400 tabular-nums">{formatTime(duration)}</span>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between mt-2" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center gap-2">
-          <motion.button onClick={onPrev} whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} className="text-gray-400 hover:text-primary transition-colors">
-            <SkipBack size={14} />
-          </motion.button>
-          <motion.button onClick={onNext} whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} className="text-gray-400 hover:text-primary transition-colors">
-            <SkipForward size={14} />
-          </motion.button>
-        </div>
-        <div className="flex items-center gap-2 flex-1 max-w-[120px]">
-          <motion.button onClick={onToggleMute} whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} className="text-gray-400 hover:text-primary transition-colors shrink-0">
-            {isMuted || volume === 0 ? <VolumeX size={14} /> : <Volume2 size={14} />}
-          </motion.button>
-          <div className="group relative h-1 bg-gray-200 dark:bg-gray-700 rounded-full cursor-pointer flex-1 touch-none" {...volumeBarProps}>
-            <div
-              className="absolute inset-y-0 left-0 bg-gray-500 dark:bg-gray-400 rounded-full pointer-events-none"
-              style={{ width: `${isMuted ? 0 : volume * 100}%` }}
-            />
-          </div>
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
