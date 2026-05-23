@@ -12,14 +12,14 @@ export default function GameSection() {
   const items = watchList.filter((o) => o.category === 'game');
 
   return (
-    <section className="pt-12 pb-20 px-4">
+    <section className="pt-[76px] pb-[76px] px-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-3xl md:text-4xl font-bold text-center mb-8"
+          className="text-3xl md:text-4xl font-bold text-center mb-[95px]"
         >
           游戏
         </motion.h2>

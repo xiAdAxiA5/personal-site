@@ -6,14 +6,14 @@ const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mas
 
 export default function ExperienceTimeline() {
   return (
-    <section className="py-20 px-4 bg-gray-50/50 dark:bg-gray-900/30 transition-colors duration-300">
+    <section className="pt-[76px] pb-[76px] px-4 bg-gray-50/50 dark:bg-gray-900/30 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-3xl md:text-4xl font-bold text-center mb-16"
+          className="text-3xl md:text-4xl font-bold text-center mb-[95px]"
         >
           求学与工作经历
         </motion.h2>
@@ -29,7 +29,7 @@ export default function ExperienceTimeline() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ ...springGentle, delay: i * 0.08 }}
-              className={`relative flex items-start mb-12 md:mb-16 ${
+              className={`relative flex items-start mb-[95px] md:mb-[95px] ${
                 i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}
             >

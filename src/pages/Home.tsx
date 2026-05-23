@@ -6,7 +6,6 @@ import Books3D from '../components/home/Books3D';
 import WatchSection from '../components/home/OperaRow';
 import GameSection from '../components/home/GameRow';
 import Music3D from '../components/home/Music3D';
-import TravelMap from '../components/home/TravelMap';
 import Contact from '../components/home/Contact';
 
 export default function Home() {
@@ -20,7 +19,6 @@ export default function Home() {
       <Music3D />
       <WatchSection />
       <GameSection />
-      <TravelMap />
       <Contact />
     </>
   );

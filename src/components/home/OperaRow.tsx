@@ -20,7 +20,7 @@ export default function WatchSection() {
   const activeItems = watchList.filter((o) => o.category === activeCat);
 
   return (
-    <section className="pt-12 pb-20 px-4">
+    <section className="pt-[76px] pb-[76px] px-4">
       <div className="max-w-6xl mx-auto">
         {/* Category nav as header */}
         <div className="flex items-center justify-center gap-4 mb-[70px]">
@@ -139,13 +139,13 @@ function MediaGrid({
   onClick: (id: string) => void;
 }) {
   return (
-    <div className="overflow-y-auto max-h-[560px] scrollbar-hide rounded-xl">
+    <div className="overflow-y-auto max-h-[550px] scrollbar-hide rounded-xl">
       {items.length === 0 ? (
         <div className="flex items-center justify-center min-h-[200px]">
           <p className="text-xs text-gray-300 dark:text-gray-600 italic">coming soon</p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 pr-1">
+        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-2.5 pr-1">
           {items.map((item, i) => (
             <motion.button
               key={item.id}
@@ -171,9 +171,9 @@ function MediaGrid({
                   </div>
                 )}
               </div>
-              <div className="p-2 text-left">
-                <h3 className="text-[11px] font-semibold dark:text-white truncate">{item.title}</h3>
-                <p className="text-[10px] text-gray-400 truncate mt-0.5">{item.creator}</p>
+              <div className="p-1.5 text-left">
+                <h3 className="text-[10px] font-semibold dark:text-white truncate leading-tight">{item.title}</h3>
+                <p className="text-[9px] text-gray-400 truncate">{item.creator}</p>
               </div>
             </motion.button>
           ))}

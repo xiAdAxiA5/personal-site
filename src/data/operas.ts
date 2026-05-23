@@ -79,7 +79,7 @@ export const watchList: Media[] = [
   { id: 'anime-jojo6', title: 'JOJO的奇妙冒险 石之海', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx131942-rermlZ9lplHX.png', notes: '', category: 'anime' },
   { id: 'anime-spyxfam', title: '间谍过家家', creator: '远藤达哉', cover: 'https://m.media-amazon.com/images/M/MV5BZDkwNjc0NWEtNzJlOC00N2YwLTk4MjktZGFlZDE2Y2QzOWI0XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
   { id: 'anime-summertime', title: '夏日重现', creator: '田中靖规', cover: 'https://m.media-amazon.com/images/M/MV5BNjhmN2RmYjgtN2ZlNC00YTdkLWFlMTYtMTdkNzkxMDA0ZjJmXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
-  { id: 'anime-fanren', title: '凡人修仙传', creator: '忘语', cover: 'https://m.media-amazon.com/images/M/MV5BNGMwNzUwMDgtNjBhNi00NjU4LWJkMzEtOTNhZTJlNjM1NzJmXkEyXkFqcGdeQXVyMTE3NzIxNzg@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-fanren', title: '凡人修仙传', creator: '忘语', cover: '/covers/anime-fanren.webp', notes: '', category: 'anime' },
   { id: 'anime-baiyao', title: '百妖谱', creator: '裟椤双树', cover: '/covers/anime-baiyao.png', notes: '', category: 'anime' },
   { id: 'anime-linglong', title: '灵笼', creator: '艺画开天', cover: '/covers/anime-linglong.png', notes: '', category: 'anime' },
 ];

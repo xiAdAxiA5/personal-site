@@ -5,25 +5,25 @@ const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mas
 
 export default function Contact() {
   return (
-    <section className="py-20 px-4">
+    <section className="pt-[76px] pb-[76px] px-4">
       <div className="max-w-4xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-3xl md:text-4xl font-bold mb-4"
+          className="text-3xl md:text-4xl font-bold mb-[95px]"
         >
           联系我
         </motion.h2>
-        <p className="text-gray-400 dark:text-gray-500 mb-12">欢迎交流与合作</p>
+        <p className="text-gray-400 dark:text-gray-500 mb-[95px]">欢迎交流与合作</p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="grid md:grid-cols-3 gap-6 mb-12"
+          className="grid md:grid-cols-3 gap-6 mb-[95px]"
         >
           {[
             { icon: Mail, label: '邮箱', value: 'hello@example.com', href: 'mailto:hello@example.com' },

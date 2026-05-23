@@ -325,7 +325,7 @@ export default function MusicSection() {
           />
         )}
       </AnimatePresence>
-      <section className="py-20 px-4">
+      <section className="pt-[76px] pb-[76px] px-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           ref={headingRef}
@@ -333,7 +333,7 @@ export default function MusicSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-3xl md:text-4xl font-bold text-center mb-12"
+          className="text-3xl md:text-4xl font-bold text-center mb-[95px]"
         >
           Music
         </motion.h2>
@@ -876,7 +876,7 @@ function PlayerView({
 
   return (
     <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 min-h-[400px] flex flex-col">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-[95px]">
         <motion.button
           onClick={onBack}
           whileHover={{ scale: 1.1 }}
@@ -896,7 +896,7 @@ function PlayerView({
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={springSnappy}
-        className="flex items-center gap-3 mb-4 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/50"
+        className="flex items-center gap-3 mb-[95px] p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/50"
       >
         <img src={album.cover} alt={album.title} className="w-10 h-10 rounded-md object-cover shadow-sm shrink-0" />
         <div className="min-w-0">
