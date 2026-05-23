@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { Code2 } from 'lucide-react';
 
-const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mass: 1 };
 
 export default function HeroSection() {
 
@@ -25,7 +25,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 1 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 26, mass: 1 }}
           className="mb-8"
         >
           {profile.avatar ? (

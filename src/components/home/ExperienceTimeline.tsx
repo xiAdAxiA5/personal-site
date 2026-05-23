@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { experiences } from '../../data/experience';
 import { Briefcase, GraduationCap } from 'lucide-react';
 
-const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
+const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mass: 1 };
 
 export default function ExperienceTimeline() {
   return (

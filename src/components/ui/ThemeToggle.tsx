@@ -14,7 +14,7 @@ export default function ThemeToggle() {
       <motion.div
         className="absolute top-0.5 w-6 h-6 rounded-full bg-white dark:bg-primary shadow-md flex items-center justify-center"
         animate={{ left: theme === 'dark' ? 28 : 2 }}
-        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 250, damping: 30 }}
       >
         {theme === 'dark' ? <Moon size={14} className="text-white" /> : <Sun size={14} className="text-yellow-500" />}
       </motion.div>

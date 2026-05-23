@@ -1,10 +1,85 @@
-export interface Opera {
+export interface Media {
   id: string;
   title: string;
-  composer: string;
+  creator: string;
   cover: string;
   notes: string;
-  category: 'opera' | 'musical' | 'ballet';
+  category: 'movie' | 'tv' | 'anime' | 'game' | 'video';
 }
 
-export const operas: Opera[] = [];
+export const watchList: Media[] = [
+  // ===== 电影 (chronological) =====
+  { id: 'movie-loveletter', title: '情书', creator: '岩井俊二', cover: 'https://m.media-amazon.com/images/M/MV5BNWY3M2NmNDAtYTllMy00ZmFhLTkxMWUtNzU1MDJiYWQ1ZjNlXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-ironman1', title: '钢铁侠', creator: 'Jon Favreau', cover: 'https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-hulk', title: '无敌浩克', creator: 'Louis Leterrier', cover: 'https://m.media-amazon.com/images/M/MV5BMTUyNzk3MjA1OF5BMl5BanBnXkFtZTcwMTE1Njg2MQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-ox', title: '喜羊羊与灰太狼之牛气冲天', creator: '原创动力', cover: 'https://m.media-amazon.com/images/M/MV5BNGYxNjU3NTMtOWI1OS00NWI2LWExMjItZWVjM2ZmMDJiMGFiXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-ironman2', title: '钢铁侠2', creator: 'Jon Favreau', cover: 'https://m.media-amazon.com/images/M/MV5BYWYyOGQzOGYtMGQ1My00ZWYxLTgzZjktZWYzN2IwYjkxYzM0XkEyXkFqcGc@._V1_QL75_UY562_CR1,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-tiger', title: '喜羊羊与灰太狼之虎虎生威', creator: '原创动力', cover: 'https://m.media-amazon.com/images/M/MV5BZGI0NzE1MzctOTdkOS00ZDg2LWEyYWEtMzllNDliODllNWM1XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-thor1', title: '雷神', creator: 'Kenneth Branagh', cover: 'https://m.media-amazon.com/images/M/MV5BNjRhNGZjZjEtYTQzYS00OWUxLThjNGEtMTIwMTE2ZDFlZTZkXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-cap1', title: '美国队长', creator: 'Joe Johnston', cover: 'https://m.media-amazon.com/images/M/MV5BNzUyM2YyY2MtNzNlMS00MWU5LTgxNjAtNzZlNmI2NjU2NDZlXkEyXkFqcGc@._V1_QL75_UY562_CR8,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-rabbit', title: '喜羊羊与灰太狼之兔年顶呱呱', creator: '原创动力', cover: 'https://m.media-amazon.com/images/M/MV5BOWMwMGE4ZjEtNjAzMi00NWI5LTk4YjktNGMwODNmZDI3ODU2XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-avengers1', title: '复仇者联盟', creator: 'Joss Whedon', cover: 'https://m.media-amazon.com/images/M/MV5BNGE0YTVjNzUtNzJjOS00NGNlLTgxMzctZTY4YTE1Y2Y1ZTU4XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-dragon', title: '喜羊羊与灰太狼之开心闯龙年', creator: '原创动力', cover: '/covers/xyy-dragon.jpg', notes: '', category: 'movie' },
+  { id: 'bb-newyear', title: '熊出没之过年', creator: '丁亮', cover: '/covers/bb-newyear.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-ironman3', title: '钢铁侠3', creator: 'Shane Black', cover: 'https://m.media-amazon.com/images/M/MV5BMjIzMzAzMjQyM15BMl5BanBnXkFtZTcwNzM2NjcyOQ@@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-thor2', title: '雷神2：黑暗世界', creator: 'Alan Taylor', cover: 'https://m.media-amazon.com/images/M/MV5BMTQyNzAwOTUxOF5BMl5BanBnXkFtZTcwMTE0OTc5OQ@@._V1_QL75_UY562_CR7,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'movie-garden', title: '言叶之庭', creator: '新海诚', cover: 'https://m.media-amazon.com/images/M/MV5BYjdiMDdlMDItOGM4Ny00YmE4LTk0MTEtMGRhM2Y4OWZkZDZkXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-snake', title: '喜羊羊与灰太狼之喜气羊羊过蛇年', creator: '原创动力', cover: '/covers/xyy-snake.avif', notes: '', category: 'movie' },
+  { id: 'bb-goods', title: '熊出没之年货', creator: '丁亮', cover: '/covers/bb-goods.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-cap2', title: '美国队长2：冬日战士', creator: 'Russo Brothers', cover: 'https://m.media-amazon.com/images/M/MV5BNWY1NjFmNDItZDhmOC00NjI1LWE0ZDItMTM0MjBjZThiOTQ2XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-gotg1', title: '银河护卫队', creator: 'James Gunn', cover: 'https://m.media-amazon.com/images/M/MV5BM2ZmNjQ2MzAtNDlhNi00MmQyLWJhZDMtNmJiMjFlOWY4MzcxXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-horse', title: '喜羊羊与灰太狼之飞马奇遇记', creator: '原创动力', cover: 'https://m.media-amazon.com/images/M/MV5BNTFmOWNjOGQtMGRmMi00YzI0LWFjZWYtMzk0OGEwMzVmNTg0XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'bb-rescue', title: '熊出没之夺宝熊兵', creator: '丁亮', cover: 'https://m.media-amazon.com/images/M/MV5BMzEyNDg3MDk2OF5BMl5BanBnXkFtZTgwMjU1MjYwMjE@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'bb-winter', title: '熊出没之雪岭熊风', creator: '丁亮', cover: 'https://m.media-amazon.com/images/M/MV5BNjY0YmE3NjctMzFkNS00NzFmLWE1NDEtOGI3NzM3Y2NhOGFjXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-avengers2', title: '复仇者联盟2：奥创纪元', creator: 'Joss Whedon', cover: 'https://m.media-amazon.com/images/M/MV5BODBhYTg1NGQtNGVmNS00ZTdiLThjYTYtZDFkNzRiNTZmNDZjXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-antman1', title: '蚁人', creator: 'Peyton Reed', cover: 'https://m.media-amazon.com/images/M/MV5BMjM2NTQ5Mzc2M15BMl5BanBnXkFtZTgwNTcxMDI2NTE@._V1_QL75_UX380_CR0,1,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'xyy-goat', title: '喜羊羊与灰太狼之羊年喜羊羊', creator: '原创动力', cover: 'https://m.media-amazon.com/images/M/MV5BNWI1ZWE2ZTctOTg0MS00YjkyLWE2ZWMtYzY5MjI3MmQ1MGViXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'bb-bearheart', title: '熊出没之熊心归来', creator: '丁亮', cover: 'https://m.media-amazon.com/images/M/MV5BZmU5ZjJhNmQtYzhiYi00NjA5LWI0OTYtZGQ5OTdiOTljODcxXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-cap3', title: '美国队长3：内战', creator: 'Russo Brothers', cover: 'https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-drstrange1', title: '奇异博士', creator: 'Scott Derrickson', cover: 'https://m.media-amazon.com/images/M/MV5BNjgwNzAzNjk1Nl5BMl5BanBnXkFtZTgwMzQ2NjI1OTE@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'movie-bigfish', title: '大鱼海棠', creator: '梁旋/张春', cover: 'https://m.media-amazon.com/images/M/MV5BZWQwNTJlMDgtM2Q3Mi00ZjcxLWEyNjYtZjQ5ZGY0MDZjYzM4XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'movie-yourname', title: '你的名字', creator: '新海诚', cover: 'https://m.media-amazon.com/images/M/MV5BYzY1OWZiN2YtMWU3My00M2YyLWI1M2EtNTljMTMwMzM5NDQ0XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-gotg2', title: '银河护卫队2', creator: 'James Gunn', cover: 'https://m.media-amazon.com/images/M/MV5BNWE5MGI3MDctMmU5Ni00YzI2LWEzMTQtZGIyZDA5MzQzNDBhXkEyXkFqcGc@._V1_QL75_UX380_CR0,1,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-spidey1', title: '蜘蛛侠：英雄归来', creator: 'Jon Watts', cover: 'https://m.media-amazon.com/images/M/MV5BODY2MTAzOTQ4M15BMl5BanBnXkFtZTgwNzg5MTE0MjI@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-thor3', title: '雷神3：诸神黄昏', creator: 'Taika Waititi', cover: 'https://m.media-amazon.com/images/M/MV5BMjMyNDkzMzI1OF5BMl5BanBnXkFtZTgwODcxODg5MjI@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-bp1', title: '黑豹', creator: 'Ryan Coogler', cover: 'https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-avengers3', title: '复仇者联盟3：无限战争', creator: 'Russo Brothers', cover: 'https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-antman2', title: '蚁人2：黄蜂女现身', creator: 'Peyton Reed', cover: 'https://m.media-amazon.com/images/M/MV5BODVkY2ZmZTAtYzFhMi00YzZlLWE2YWMtMDBiYjY2OTU4ZWM0XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-cmarvel1', title: '惊奇队长', creator: 'Anna Boden, Ryan Fleck', cover: 'https://m.media-amazon.com/images/M/MV5BZDI1NGU2ODAtNzBiNy00MWY5LWIyMGEtZjUxZjUwZmZiNjBlXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+  { id: 'movie-weathering', title: '天气之子', creator: '新海诚', cover: 'https://m.media-amazon.com/images/M/MV5BMmJiYWI4ZjktMzgyZS00MjBiLThmOTYtZWJmOTUzOTFkMTFiXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'movie' },
+  { id: 'mcu-avengers4', title: '复仇者联盟4：终局之战', creator: 'Russo Brothers', cover: 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_QL75_UX380_CR0,0,380,562_.jpg', notes: '', category: 'movie' },
+
+  // ===== 电视剧 (chronological) =====
+  { id: 'tv-dagougun', title: '打狗棍', creator: '郭靖宇', cover: 'https://m.media-amazon.com/images/M/MV5BM2MxMTZiM2QtZjkzYS00MWYxLWE4MTQtNzJiNmM0MjBjNzViXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'tv' },
+  { id: 'tv-yonggan', title: '勇敢的心', creator: '郭靖宇', cover: 'https://img3.cache.netease.com/photo/0003/2014-08-14/A3JPQGV500B70003.jpg', notes: '', category: 'tv' },
+  { id: 'tv-yinjia', title: '隐秘的角落', creator: '辛爽', cover: 'https://m.media-amazon.com/images/M/MV5BM2JiYWFiODEtMzhjOS00M2VmLWFkZjYtYThjMWM3ZTViNDY2XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'tv' },
+  { id: 'tv-kaiduan', title: '开端', creator: '孙墨龙', cover: 'https://m.media-amazon.com/images/M/MV5BOTY0ZmExMjAtZmIxMC00M2RhLTg0MzgtYTNkMWFlYjA2MjZhXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'tv' },
+  { id: 'tv-kuangbiao', title: '狂飙', creator: '徐纪周', cover: 'https://m.media-amazon.com/images/M/MV5BMzlhZDU2ZGYtMWFlZC00NGYwLTg4YTYtNDUwOWZhOGVhMzk4XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'tv' },
+
+  // ===== 动画 (chronological) =====
+  { id: 'anime-kon', title: '轻音少女', creator: '山田尚子', cover: 'https://m.media-amazon.com/images/M/MV5BNjRjYTc2ZDctNTlhNS00NTdiLTllNjItMWNjMzlmNWQ2MGEwXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo1', title: 'JOJO的奇妙冒险 幻影血脉', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx666-kYzXvKlUbeMP.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo2', title: 'JOJO的奇妙冒险 战斗潮流', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx14719-VT5dRzTBSZ0w.jpg', notes: '', category: 'anime' },
+  { id: 'anime-aot', title: '进击的巨人', creator: '谏山创', cover: 'https://m.media-amazon.com/images/M/MV5BZjliODY5MzQtMmViZC00MTZmLWFhMWMtMjMwM2I3OGY1MTRiXkEyXkFqcGc@._V1_QL75_UY562_CR9,0,380,562_.jpg', notes: '', category: 'anime' },
+  { id: 'anime-tamako', title: '玉子市场', creator: '山田尚子', cover: 'https://m.media-amazon.com/images/M/MV5BOGZmZjU2ZDItYTk3MC00YWQwLWJhNDUtNDYzYWYzMjRhMTE1XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo3', title: 'JOJO的奇妙冒险 星尘斗士', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20474-xuqem5GBlBtb.jpg', notes: '', category: 'anime' },
+  { id: 'anime-tokyoghoul', title: '东京喰种', creator: '石田翠', cover: 'https://m.media-amazon.com/images/M/MV5BZWI2NzZhMTItOTM3OS00NjcyLThmN2EtZGZjMjlhYWMwODMzXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-outcast', title: '一人之下', creator: '米二', cover: 'https://m.media-amazon.com/images/M/MV5BOGM2OWRhZjctZTk0Mi00NzVhLWIyNjUtNDFjMWM3Y2VjMDFiXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo4', title: 'JOJO的奇妙冒险 不灭钻石', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21450-D7XFwEQjZ5GA.jpg', notes: '', category: 'anime' },
+  { id: 'anime-rezero', title: 'Re:从零开始的异世界生活', creator: '长月达平', cover: 'https://m.media-amazon.com/images/M/MV5BZWI4OTVkNDgtOTBmMC00M2I3LTk3NTctOWY3NmRkODIxMDViXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-mob', title: '灵能百分百', creator: 'ONE', cover: 'https://m.media-amazon.com/images/M/MV5BYzU3NDM4ZjgtY2UyMi00YTczLTgyNDEtMjBiMDJlOGUxNjcxXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-artclub', title: '这个美术社大有问题', creator: '伊右群', cover: 'https://m.media-amazon.com/images/M/MV5BOGQyNzcyMjItMmRlZC00MDhjLTkxNzgtMTNhZWYxMmZmZjhmXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-zhenhun', title: '镇魂街', creator: '许辰', cover: 'https://m.media-amazon.com/images/M/MV5BYTY0YWQ1ZTEtNTEzMi00NGY4LWEyZmQtOTQyODdlNTAxOTQzXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo5', title: 'JOJO的奇妙冒险 黄金之风', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx102883-S9KzdMJhDswJ.png', notes: '', category: 'anime' },
+  { id: 'anime-scissor', title: '刺客五六七', creator: '何小疯', cover: 'https://m.media-amazon.com/images/M/MV5BNDdhYTU2OTUtNjRiOS00MjQxLThlNzctZWEyY2Q3YTA2M2ZmXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-demonslayer', title: '鬼灭之刃', creator: '吾峠呼世晴', cover: 'https://m.media-amazon.com/images/M/MV5BMWU1OGEwNmQtNGM3MS00YTYyLThmYmMtN2FjYzQzNzNmNTE0XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-hei', title: '罗小黑战记', creator: 'MTJJ', cover: 'https://m.media-amazon.com/images/M/MV5BNWI3ZTZmNjMtODQzNi00MGU3LThhMTQtZmZkMTkwNzAzZTk3XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jjk', title: '咒术回战', creator: '芥见下下', cover: 'https://m.media-amazon.com/images/M/MV5BMjBlNTExMDAtMWZjZi00MDc5LWFkMjgtZDU0ZWQ5ODk3YWY5XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg', notes: '', category: 'anime' },
+  { id: 'anime-foghill', title: '雾山五行', creator: '林魂', cover: 'https://m.media-amazon.com/images/M/MV5BMTZmNmNmYmQtNTIxMi00MjJjLWE5N2UtODZhMmZhOGExOGQyXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo6', title: 'JOJO的奇妙冒险 石之海', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx131942-rermlZ9lplHX.png', notes: '', category: 'anime' },
+  { id: 'anime-spyxfam', title: '间谍过家家', creator: '远藤达哉', cover: 'https://m.media-amazon.com/images/M/MV5BZDkwNjc0NWEtNzJlOC00N2YwLTk4MjktZGFlZDE2Y2QzOWI0XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-summertime', title: '夏日重现', creator: '田中靖规', cover: 'https://m.media-amazon.com/images/M/MV5BNjhmN2RmYjgtN2ZlNC00YTdkLWFlMTYtMTdkNzkxMDA0ZjJmXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-fanren', title: '凡人修仙传', creator: '忘语', cover: 'https://m.media-amazon.com/images/M/MV5BNGMwNzUwMDgtNjBhNi00NjU4LWJkMzEtOTNhZTJlNjM1NzJmXkEyXkFqcGdeQXVyMTE3NzIxNzg@._V1_SX300.jpg', notes: '', category: 'anime' },
+  { id: 'anime-baiyao', title: '百妖谱', creator: '裟椤双树', cover: '/covers/anime-baiyao.png', notes: '', category: 'anime' },
+  { id: 'anime-linglong', title: '灵笼', creator: '艺画开天', cover: '/covers/anime-linglong.png', notes: '', category: 'anime' },
+];

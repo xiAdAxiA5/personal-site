@@ -1,13 +1,13 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { albums, type Album, type Track } from '../../data/music';
-import { ArrowLeft, Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, X } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Volume2, VolumeX, SkipBack, SkipForward, X, ListMusic } from 'lucide-react';
 
 type View = 'browsing' | 'detail' | 'playing';
 
-const springSnappy = { type: 'spring' as const, stiffness: 500, damping: 40, mass: 1 };
-const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
-const springSlide = { type: 'spring' as const, stiffness: 350, damping: 38, mass: 1 };
+const springSnappy = { type: 'spring' as const, stiffness: 250, damping: 30, mass: 1 };
+const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mass: 1 };
+const springSlide = { type: 'spring' as const, stiffness: 200, damping: 28, mass: 1 };
 
 function formatTime(seconds: number): string {
   if (!isFinite(seconds) || seconds < 0) return '0:00';
@@ -239,6 +239,30 @@ export default function MusicSection() {
     return () => audio.removeEventListener('ended', onEnded);
   }, [selected, currentTrack, playTrack]);
 
+  const autoPlayed = useRef(false);
+
+  // Auto-play 最后的水族馆 on first visit
+  useEffect(() => {
+    if (autoPlayed.current) return;
+    autoPlayed.current = true;
+    const aquarium = albums.find((a) => a.id === 'jude-aquarium');
+    if (!aquarium || !aquarium.tracks[0].src) return;
+    setSelected(aquarium);
+    setCurrentTrack(0);
+    const audio = audioRef.current;
+    audio.src = aquarium.tracks[0].src!;
+    audio.play().then(() => {
+      // success
+    }).catch(() => {
+      // Browser blocked autoplay — retry on first user click anywhere
+      const retry = () => {
+        audio.play().catch(() => {});
+        document.removeEventListener('click', retry);
+      };
+      document.addEventListener('click', retry, { once: true });
+    });
+  }, []);
+
   useEffect(() => {
     return () => { audioRef.current.pause(); };
   }, []);
@@ -269,6 +293,10 @@ export default function MusicSection() {
     return acc;
   }, -1);
   const currentLyricText = lyrics[activeLyricIndex]?.text ?? '';
+  const currentLyricDuration =
+    activeLyricIndex >= 0 && activeLyricIndex < lyrics.length - 1
+      ? lyrics[activeLyricIndex + 1].time - lyrics[activeLyricIndex].time
+      : duration - (lyrics[activeLyricIndex]?.time ?? 0);
 
   const showTopBar = hasAudio && selected && (view === 'browsing' || !headingVisible);
 
@@ -285,6 +313,7 @@ export default function MusicSection() {
             isMuted={isMuted}
             isPlaying={isPlaying}
             lyricText={currentLyricText}
+            lyricDuration={currentLyricDuration}
             seekBarProps={seekBarProps}
             volumeBarProps={volumeBarProps}
             onToggleMute={handleToggleMute}
@@ -388,6 +417,7 @@ function TopBarPlayer({
   isMuted,
   isPlaying,
   lyricText,
+  lyricDuration,
   seekBarProps,
   volumeBarProps,
   onToggleMute,
@@ -405,6 +435,7 @@ function TopBarPlayer({
   isMuted: boolean;
   isPlaying: boolean;
   lyricText: string;
+  lyricDuration: number;
   seekBarProps: { onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void };
   volumeBarProps: { onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => void };
   onToggleMute: () => void;
@@ -422,123 +453,70 @@ function TopBarPlayer({
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: -80, opacity: 0 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 35, mass: 1 }}
-      className="fixed top-16 left-0 right-0 z-40"
+      transition={{ type: 'spring', stiffness: 120, damping: 22, mass: 1.5 }}
+      className="fixed top-[72px] left-4 right-4 z-40 flex justify-center pointer-events-none"
     >
-      <div className="relative bg-white/75 dark:bg-gray-900/75 backdrop-blur-xl backdrop-saturate-[180%] border-b border-black/[0.06] dark:border-white/[0.06]">
-        <div className="max-w-6xl mx-auto px-4 h-11 flex items-center">
-          {/* Left: album art + info */}
-          <div
-            className="flex items-center gap-3 min-w-0 cursor-pointer select-none"
+      <div className="pointer-events-auto bg-white/85 dark:bg-gray-900/85 backdrop-blur-xl backdrop-saturate-[180%] rounded-xl shadow-lg border border-black/[0.06] dark:border-white/[0.08] overflow-hidden w-full max-w-xl">
+        <div className="flex items-center gap-3 px-3 h-12">
+          <img
+            src={album.cover}
+            alt={album.title}
+            className="w-8 h-8 rounded-md object-cover shadow-sm shrink-0 cursor-pointer"
             onClick={onClick}
-          >
-            <img
-              src={album.cover}
-              alt={album.title}
-              className="w-9 h-9 rounded-md object-cover shadow-sm shrink-0"
-            />
-            <div className="min-w-0 hidden sm:block">
-              <p className="text-sm font-medium dark:text-white truncate leading-snug">
-                {track.title}
-              </p>
-              <p className="text-xs text-black/50 dark:text-white/40 truncate leading-snug">
-                {album.artist}
-              </p>
+          />
+          <div className="min-w-0 cursor-pointer" onClick={onClick}>
+            <p className="text-sm font-medium dark:text-white truncate leading-tight">
+              {track.title}
+            </p>
+            <p className="text-[11px] text-black/40 dark:text-white/30 truncate leading-tight">
+              {album.artist}
+            </p>
+          </div>
+
+          {/* Lyric — scrolls at song tempo */}
+          <LyricLine text={lyricText} duration={lyricDuration} />
+
+          {/* Controls */}
+          <div className="flex items-center gap-1 shrink-0">
+            <motion.button onClick={onPrev} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.85 }}
+              className="p-1 text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 transition-colors">
+              <SkipBack size={15} />
+            </motion.button>
+            <motion.button onClick={onTogglePlay} whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.92 }}
+              className="p-1.5 rounded-full bg-gray-800 dark:bg-white text-white dark:text-gray-900">
+              {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" className="ml-0.5" />}
+            </motion.button>
+            <motion.button onClick={onNext} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.85 }}
+              className="p-1 text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 transition-colors">
+              <SkipForward size={15} />
+            </motion.button>
+          </div>
+
+          {/* Volume */}
+          <div className="hidden sm:flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+            <motion.button onClick={onToggleMute} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.85 }}
+              className="text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 transition-colors">
+              {isMuted || volume === 0 ? <VolumeX size={13} /> : <Volume2 size={13} />}
+            </motion.button>
+            <div className="relative h-[3px] bg-black/8 dark:bg-white/8 rounded-full cursor-pointer w-14 touch-none" {...volumeBarProps}>
+              <div className="absolute inset-y-0 left-0 bg-gray-500 dark:bg-white/50 rounded-full pointer-events-none"
+                style={{ width: `${isMuted ? 0 : volume * 100}%` }} />
             </div>
           </div>
 
-          {/* Center: lyric */}
-          <div className="flex-1 min-w-0 text-center hidden sm:block px-4">
-            {lyricText && (
-              <motion.p
-                key={lyricText}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-                className="text-sm text-black/40 dark:text-white/40 truncate"
-              >
-                {lyricText}
-              </motion.p>
-            )}
-          </div>
-
-          {/* Right: controls + volume */}
-          <div className="flex items-center gap-2 shrink-0 ml-auto">
-            <motion.button
-              onClick={onPrev}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.85 }}
-              className="p-1.5 text-black/35 dark:text-white/35 hover:text-black/70 dark:hover:text-white/70 transition-colors"
-            >
-              <SkipBack size={16} />
-            </motion.button>
-            <motion.button
-              onClick={onTogglePlay}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.94 }}
-              className="p-1.5 rounded-full bg-gray-800 dark:bg-white text-white dark:text-gray-900"
-            >
-              {isPlaying ? (
-                <Pause size={15} fill="currentColor" />
-              ) : (
-                <Play size={15} fill="currentColor" className="ml-0.5" />
-              )}
-            </motion.button>
-            <motion.button
-              onClick={onNext}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.85 }}
-              className="p-1.5 text-black/35 dark:text-white/35 hover:text-black/70 dark:hover:text-white/70 transition-colors"
-            >
-              <SkipForward size={16} />
-            </motion.button>
-
-            <div
-              className="hidden sm:flex items-center gap-2 w-28 justify-end"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <motion.button
-                onClick={onToggleMute}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.85 }}
-                className="text-black/35 dark:text-white/35 hover:text-black/70 dark:hover:text-white/70 transition-colors shrink-0"
-              >
-                {isMuted || volume === 0 ? <VolumeX size={14} /> : <Volume2 size={14} />}
-              </motion.button>
-              <div
-                className="group relative h-1 bg-black/10 dark:bg-white/10 rounded-full cursor-pointer w-20 touch-none"
-                {...volumeBarProps}
-              >
-                <div
-                  className="absolute inset-y-0 left-0 bg-gray-500 dark:bg-white/60 rounded-full pointer-events-none"
-                  style={{ width: `${isMuted ? 0 : volume * 100}%` }}
-                />
-              </div>
-            </div>
-          </div>
-
+          {/* Close */}
+          <motion.button onClick={(e) => { e.stopPropagation(); onClose(); }}
+            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.85 }}
+            className="p-1 text-black/30 dark:text-white/30 hover:text-black/60 dark:hover:text-white/60 transition-colors shrink-0">
+            <X size={14} />
+          </motion.button>
         </div>
 
-        {/* Close button — right edge of viewport */}
-        <motion.button
-          onClick={(e) => { e.stopPropagation(); onClose(); }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.85 }}
-          className="absolute right-[52px] top-1/2 -translate-y-1/2 p-1.5 text-black/35 dark:text-white/35 hover:text-black/70 dark:hover:text-white/70 transition-colors"
-        >
-          <X size={15} />
-        </motion.button>
-      </div>
-
-      {/* Progress bar — thin bottom edge */}
-      <div
-        className="h-[3px] cursor-pointer touch-none bg-black/[0.05] dark:bg-white/[0.05]"
-        {...seekBarProps}
-      >
-        <div
-          className="h-full bg-gray-700 dark:bg-white/90 transition-[width] duration-100 ease-linear"
-          style={{ width: `${progress}%` }}
-        />
+        {/* Progress bar */}
+        <div className="h-[2px] cursor-pointer touch-none bg-black/[0.04] dark:bg-white/[0.04]" {...seekBarProps}>
+          <div className="h-full bg-gray-600 dark:bg-white/70 transition-[width] duration-100 ease-linear"
+            style={{ width: `${progress}%` }} />
+        </div>
       </div>
     </motion.div>
   );
@@ -595,6 +573,64 @@ function Turntable({ view, selected, isPlaying }: { view: View; selected: Album 
   );
 }
 
+function LyricLine({ text, duration }: { text: string; duration: number }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [overflow, setOverflow] = useState(false);
+  const [animStyle, setAnimStyle] = useState<React.CSSProperties>({});
+
+  useLayoutEffect(() => {
+    const c = containerRef.current;
+    const t = textRef.current;
+    if (!c || !t) return;
+    const over = t.offsetWidth > c.offsetWidth;
+    setOverflow(over);
+    if (!over) return;
+
+    const distance = t.offsetWidth - c.offsetWidth + 24;
+    const dur = duration > 0 ? duration : text.length * 0.3;
+    const name = `ls-${text.length}-${Math.round(distance)}`;
+
+    // Inject keyframes
+    const styleId = `style-${name}`;
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        @keyframes ${name} {
+          0% { transform: translateX(0); }
+          12% { transform: translateX(0); }
+          88% { transform: translateX(-${distance}px); }
+          100% { transform: translateX(-${distance}px); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    setAnimStyle({
+      display: 'inline-block',
+      animation: `${name} ${dur}s linear infinite`,
+    });
+  }, [text, duration]);
+
+  if (!text) return <div className="flex-1 min-w-0 hidden sm:block" />;
+
+  return (
+    <div ref={containerRef} className="flex-1 min-w-0 hidden sm:block overflow-hidden">
+      <motion.div
+        key={text}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.15 }}
+        className="whitespace-nowrap text-xs text-black/40 dark:text-white/40"
+        style={overflow ? animStyle : { display: 'block', textAlign: 'center' }}
+      >
+        <span ref={textRef}>{text}</span>
+      </motion.div>
+    </div>
+  );
+}
+
 function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a: Album) => void }) {
   if (list.length === 0) {
     return (
@@ -607,7 +643,60 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
   return (
     <div className="overflow-y-auto max-h-[620px] scrollbar-hide rounded-xl">
       <div className="grid grid-cols-2 gap-4 pr-1">
-        {list.map((album, i) => (
+        {list.map((album, i) => {
+          const hasAudio = album.tracks.some((t) => t.src);
+          const isPlaylist = album.type === 'playlist';
+          const isHero = i === 0 && hasAudio && !isPlaylist;
+
+          if (isPlaylist) {
+            return (
+              <motion.button
+                key={album.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ ...springGentle, delay: i * 0.05 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => onSelect(album)}
+                className="flex items-center gap-3 p-3 rounded-xl bg-surface-light/40 dark:bg-surface-dark/40 border border-dashed border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:bg-surface-light/60 dark:hover:bg-surface-dark/60 transition-all text-left cursor-pointer"
+              >
+                <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
+                  <ListMusic size={18} className="text-gray-400" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-medium dark:text-white truncate">{album.title}</h3>
+                  <p className="text-xs text-gray-400 truncate mt-0.5">{album.artist} · {album.tracks.length} 首</p>
+                </div>
+              </motion.button>
+            );
+          }
+
+          if (isHero) {
+            return (
+              <motion.button
+                key={album.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ ...springGentle, delay: i * 0.05 }}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => onSelect(album)}
+                className="col-span-2 flex items-center gap-5 p-5 rounded-2xl bg-surface-light dark:bg-surface-dark border-2 border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all text-left cursor-pointer"
+              >
+                <img src={album.cover} alt={album.title} className="w-24 h-24 rounded-xl object-cover shadow-md shrink-0" />
+                <div className="min-w-0">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary">可播放</span>
+                  <h3 className="text-lg font-bold dark:text-white mt-1 truncate">{album.title}</h3>
+                  <p className="text-sm text-gray-400 truncate mt-0.5">{album.artist}</p>
+                  <p className="text-xs text-gray-400 mt-1">{album.tracks.length} 首</p>
+                </div>
+              </motion.button>
+            );
+          }
+
+          return (
           <motion.button
             key={album.id}
             initial={{ opacity: 0, y: 20 }}
@@ -617,16 +706,24 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => onSelect(album)}
-            className="flex items-center gap-4 p-3 rounded-xl bg-surface-light dark:bg-surface-dark border border-gray-100 dark:border-border-dark hover:shadow-md transition-shadow text-left cursor-pointer"
+            className={`flex items-center gap-4 p-3 rounded-xl border transition-shadow text-left cursor-pointer ${
+              hasAudio
+                ? 'bg-surface-light dark:bg-surface-dark border-gray-100 dark:border-border-dark hover:shadow-md'
+                : 'bg-surface-light dark:bg-surface-dark border-gray-100 dark:border-border-dark hover:shadow-md'
+            }`}
           >
             <img src={album.cover} alt={album.title} className="w-16 h-16 rounded-lg object-cover shadow-sm shrink-0" />
             <div className="min-w-0">
-              <h3 className="text-sm font-semibold dark:text-white truncate">{album.title}</h3>
+              <h3 className={`text-sm font-semibold truncate ${hasAudio ? 'dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}>{album.title}</h3>
               <p className="text-xs text-gray-400 truncate mt-0.5">{album.artist}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{album.tracks.length} 首</p>
+              <p className="text-xs mt-0.5 flex items-center gap-1">
+                <span className={hasAudio ? 'text-gray-400' : 'text-gray-400 dark:text-gray-400'}>{album.tracks.length} 首</span>
+                {hasAudio && <span className="px-1 py-px rounded text-[9px] font-medium bg-primary/10 text-primary">可播</span>}
+                {!hasAudio && <span className="px-1 py-px rounded text-[9px] text-gray-400 dark:text-gray-400 border border-gray-300 dark:border-gray-600">暂无版权</span>}
+              </p>
             </div>
           </motion.button>
-        ))}
+        )})}
       </div>
     </div>
   );
@@ -901,14 +998,18 @@ function PlayerView({
 
       {/* Tracklist */}
       <div className="border-t border-gray-100 dark:border-gray-700 pt-3 space-y-0.5 overflow-y-auto scrollbar-hide" style={{ maxHeight: hasLyrics ? '100px' : 'auto' }}>
-        {album.tracks.map((t, i) => (
+        {album.tracks.map((t, i) => {
+          const canPlay = !!t.src;
+          return (
           <motion.button
             key={i}
-            onClick={() => onTrackClick(i)}
-            whileHover={{ x: 4 }}
-            whileTap={{ scale: 0.98 }}
+            onClick={canPlay ? () => onTrackClick(i) : undefined}
+            whileHover={canPlay ? { x: 4 } : undefined}
+            whileTap={canPlay ? { scale: 0.98 } : undefined}
             className={`w-full flex items-center gap-3 px-2 py-1 rounded-lg text-left transition-colors ${
-              i === currentTrack
+              !canPlay
+                ? 'cursor-default hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                : i === currentTrack
                 ? 'bg-primary/10 text-primary'
                 : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 text-gray-500 dark:text-gray-400'
             }`}
@@ -919,9 +1020,13 @@ function PlayerView({
             <span className={`text-xs flex-1 truncate ${i === currentTrack ? 'font-semibold text-primary' : ''}`}>
               {t.title}
             </span>
-            <span className="text-[10px] opacity-60 shrink-0">{t.duration}</span>
+            {canPlay ? (
+              <span className="text-[10px] opacity-60 shrink-0">{t.duration}</span>
+            ) : (
+              <span className="text-[10px] text-gray-400 dark:text-gray-500 shrink-0">暂无</span>
+            )}
           </motion.button>
-        ))}
+        )})}
       </div>
     </div>
   );
@@ -944,14 +1049,18 @@ function TrackRow({
   onLeave: () => void;
   onClick: () => void;
 }) {
+  const hasSrc = !!track.src;
+
   return (
-    <div onMouseEnter={onHover} onMouseLeave={onLeave} className="relative">
+    <div onMouseEnter={hasSrc ? onHover : undefined} onMouseLeave={hasSrc ? onLeave : undefined} className="relative">
       <motion.button
-        onClick={onClick}
-        whileHover={{ x: 4 }}
-        whileTap={{ scale: 0.98 }}
+        onClick={hasSrc ? onClick : undefined}
+        whileHover={hasSrc ? { x: 4 } : undefined}
+        whileTap={hasSrc ? { scale: 0.98 } : undefined}
         className={`w-full flex items-center gap-4 px-3 py-2.5 rounded-lg transition-colors text-left ${
-          isActive
+          !hasSrc
+            ? 'cursor-default hover:bg-gray-50 dark:hover:bg-gray-800/50'
+            : isActive
             ? 'bg-primary/10 text-primary'
             : isHovered
             ? 'bg-primary/5'
@@ -964,7 +1073,11 @@ function TrackRow({
         <span className={`text-sm flex-1 truncate ${isActive ? 'font-semibold' : 'font-medium dark:text-white'}`}>
           {track.title}
         </span>
-        <span className="text-xs text-gray-400 shrink-0">{track.duration}</span>
+        {hasSrc ? (
+          <span className="text-xs text-gray-400 shrink-0">{track.duration}</span>
+        ) : (
+          <span className="text-[10px] text-gray-400 dark:text-gray-500 shrink-0">暂无</span>
+        )}
       </motion.button>
       <AnimatePresence>
         {isHovered && track.description && (

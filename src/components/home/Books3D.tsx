@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { books } from '../../data/books';
 import { X } from 'lucide-react';
 
-const springGentle = { type: 'spring' as const, stiffness: 300, damping: 35, mass: 1 };
-const springBouncy = { type: 'spring' as const, stiffness: 350, damping: 30, mass: 1 };
+const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mass: 1 };
+const springBouncy = { type: 'spring' as const, stiffness: 200, damping: 26, mass: 1 };
 
 export default function BookShelf() {
   const [selected, setSelected] = useState<string | null>(null);
@@ -33,7 +33,7 @@ export default function BookShelf() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-3xl md:text-4xl font-bold text-center mb-12"
+          className="text-3xl md:text-4xl font-bold text-center mb-20"
         >
           Books
         </motion.h2>
