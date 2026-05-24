@@ -6,6 +6,12 @@ export interface Book {
   rating: number;
   notes: string;
   category: 'literature' | 'webnovel';
+  status: 'finished' | 'reading' | 'paused' | 'want-to-read';
+  reflection?: string;
+  quote?: string;
+  tags?: string[];
+  progress?: number;
+  featured?: boolean;
 }
 
 export const books: Book[] = [
@@ -17,6 +23,10 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'literature',
+    status: 'reading',
+    progress: 50,
+    tags: ['成长', '德国文学', '青春'],
+    featured: true,
   },
   {
     id: 'lit-2',
@@ -26,6 +36,9 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'literature',
+    status: 'finished',
+    tags: ['科幻', '中国文学', '宇宙'],
+    featured: true,
   },
   {
     id: 'lit-3',
@@ -35,6 +48,9 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'literature',
+    status: 'reading',
+    progress: 50,
+    tags: ['历史', '德国文学', '记忆'],
   },
   {
     id: 'lit-4',
@@ -44,6 +60,8 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'literature',
+    status: 'finished',
+    tags: ['家庭', '日本文学', '生活'],
   },
   {
     id: 'lit-5',
@@ -53,6 +71,33 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'literature',
+    status: 'finished',
+    tags: ['心理学', '哲学', '自我成长'],
+    featured: true,
+  },
+  {
+    id: 'lit-6',
+    title: '瓦尔登湖',
+    author: '亨利·梭罗',
+    cover: '/books/瓦尔登湖.jpg',
+    rating: 0,
+    notes: '',
+    category: 'literature',
+    status: 'reading',
+    progress: 40,
+    tags: ['自然', '哲学', '隐居'],
+  },
+  {
+    id: 'lit-7',
+    title: '非暴力沟通',
+    author: '马歇尔·卢森堡',
+    cover: '/books/非暴力沟通.jpg',
+    rating: 0,
+    notes: '',
+    category: 'literature',
+    status: 'reading',
+    progress: 30,
+    tags: ['心理学', '沟通', '自我提升'],
   },
   {
     id: 'web-1',
@@ -62,6 +107,8 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'webnovel',
+    status: 'paused',
+    tags: ['修仙', '长篇', '凡人流'],
   },
   {
     id: 'web-2',
@@ -71,6 +118,9 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'webnovel',
+    status: 'finished',
+    tags: ['克苏鲁', '蒸汽朋克', '序列'],
+    featured: true,
   },
   {
     id: 'web-3',
@@ -80,6 +130,8 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'webnovel',
+    status: 'paused',
+    tags: ['诡异', '修仙', '疯狂'],
   },
   {
     id: 'web-4',
@@ -89,6 +141,8 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'webnovel',
+    status: 'paused',
+    tags: ['暗黑', '修仙', '智斗'],
   },
   {
     id: 'web-5',
@@ -98,6 +152,9 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'webnovel',
+    status: 'reading',
+    progress: 60,
+    tags: ['武侠', '仙侠', '江湖'],
   },
   {
     id: 'web-6',
@@ -107,5 +164,7 @@ export const books: Book[] = [
     rating: 0,
     notes: '',
     category: 'webnovel',
+    status: 'want-to-read',
+    tags: ['恐怖', '灵异', '现代'],
   },
 ];
