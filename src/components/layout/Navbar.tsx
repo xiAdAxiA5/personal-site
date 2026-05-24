@@ -8,7 +8,6 @@ const navItems = [
   { label: '首页', path: '/' },
   { label: '博客', path: '/blog' },
   { label: '关于', path: '/about' },
-  { label: '项目', path: '/projects' },
   { label: '留言', path: '/guestbook' },
 ];
 
@@ -17,19 +16,22 @@ export default function Navbar() {
   const [showName, setShowName] = useState(false);
   const location = useLocation();
 
+  const isHome = location.pathname === '/';
+
   useEffect(() => {
+    if (!isHome) {
+      setShowName(true);
+      return;
+    }
     const onScroll = () => {
-      // Check if hero title area is scrolled past
       const heroTitle = document.getElementById('hero-title');
       if (!heroTitle) return;
-      const rect = heroTitle.getBoundingClientRect();
-      // Show name when title's bottom scrolls above navbar
-      setShowName(rect.bottom < 64);
+      setShowName(heroTitle.getBoundingClientRect().bottom < 64);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isHome]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-light/85 dark:bg-bg-dark/80 backdrop-blur-xl border-b border-gray-100 dark:border-border-dark transition-colors duration-300">

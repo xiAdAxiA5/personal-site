@@ -1,7 +1,7 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { books, type Book } from '../../data/books';
-import { X, BookOpen, Quote, Sparkles, Clock, ChevronRight, ChevronLeft } from 'lucide-react';
+import { X, BookOpen, Clock } from 'lucide-react';
 
 const springGentle = { type: 'spring' as const, stiffness: 170, damping: 28, mass: 1 };
 const springBouncy = { type: 'spring' as const, stiffness: 200, damping: 26, mass: 1 };
@@ -18,13 +18,6 @@ const statusStyles: Record<Book['status'], string> = {
   'want-to-read': 'bg-violet-100 text-violet-700 border-violet-200 dark:bg-violet-500/15 dark:text-violet-400 dark:border-violet-500/25',
 };
 
-const statusDot: Record<Book['status'], string> = {
-  finished: 'bg-emerald-400 border-emerald-400/50',
-  reading: 'bg-amber-400 border-amber-400/50 animate-pulse',
-  paused: 'bg-slate-400 border-slate-400/50',
-  'want-to-read': 'bg-violet-400 border-violet-400/50',
-};
-
 const currentlyReading = books.filter((b) => b.status === 'reading');
 const literature = books.filter((b) => b.category === 'literature');
 const webnovels = books.filter((b) => b.category === 'webnovel');
@@ -33,83 +26,56 @@ export default function BookShelf() {
   const [selected, setSelected] = useState<Book | null>(null);
 
   return (
-    <section
-      className="relative pt-[76px] pb-[76px] px-4 overflow-hidden
-        bg-bg-light dark:bg-bg-dark transition-colors duration-500"
-    >
-      {/* Ambient orbs */}
-      <div className="absolute top-1/4 -left-20 w-[400px] h-[400px] rounded-full
-        bg-primary/[0.03] dark:bg-indigo-500/[0.03] blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/3 -right-20 w-[350px] h-[350px] rounded-full
-        bg-accent/[0.03] dark:bg-cyan-500/[0.03] blur-[100px] pointer-events-none" />
-
-      {/* Dot grid */}
-      <div
-        className="absolute inset-0 opacity-[0.012] dark:opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle, currentColor 0.5px, transparent 0.5px)`,
-          backgroundSize: '32px 32px',
-        }}
-      />
-
-      <div className="relative max-w-6xl mx-auto">
-        {/* Section Header */}
+    <div className="w-full max-w-5xl mx-auto pt-4 pb-[36px]">
+      {/* ===== Currently Reading ===== */}
+      {currentlyReading.length > 0 && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-center mb-16"
+          className="mb-10"
         >
-          <p className="text-[11px] font-medium tracking-[0.3em] uppercase
-            text-primary/50 dark:text-primary/40 mb-3">
-            Reading Archive
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight
-            text-text-light dark:text-text-dark">
-            Books
-          </h2>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <p className="text-xs font-medium tracking-[0.12em] uppercase
+              text-muted-light/60 dark:text-muted-dark/50">
+              Currently Reading
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {currentlyReading.map((book, i) => (
+              <ReadingCard key={book.id} book={book} index={i} onClick={() => setSelected(book)} />
+            ))}
+          </div>
         </motion.div>
+      )}
 
-        {/* ===== Currently Reading ===== */}
-        {currentlyReading.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ ...springGentle, delay: 0.05 }}
-            className="mb-16"
-          >
-            <div className="flex items-center gap-2.5 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              <p className="text-xs font-medium tracking-[0.15em] uppercase
-                text-muted-light/60 dark:text-muted-dark/50">
-                Currently Reading
-              </p>
-            </div>
+      {/* ===== Literature | Web Novels ===== */}
+      <div className="flex gap-0">
+        {/* Literature (left) */}
+        <div className="flex-1 min-w-0 pr-4 md:pr-6">
+          <p className="text-[11px] font-medium tracking-[0.12em] uppercase mb-4
+            text-muted-light/60 dark:text-muted-dark/50">
+            Literature
+          </p>
+          <BookGrid items={literature} onClick={setSelected} />
+        </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {currentlyReading.map((book, i) => (
-                <ReadingCard key={book.id} book={book} index={i} onClick={() => setSelected(book)} />
-              ))}
-            </div>
-          </motion.div>
-        )}
+        {/* Vertical divider */}
+        <div className="shrink-0 flex flex-col items-center">
+          <div className="w-px flex-1 bg-gradient-to-b from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
+        </div>
 
-        {/* ===== Scrollable Shelves ===== */}
-        <ScrollableShelf
-          label="Literature"
-          items={literature}
-          onClick={setSelected}
-        />
-
-        <div className="my-10" />
-
-        <ScrollableShelf
-          label="Web Novels"
-          items={webnovels}
-          onClick={setSelected}
-        />
+        {/* Web Novels (right) */}
+        <div className="flex-1 min-w-0 pl-4 md:pl-6">
+          <p className="text-[11px] font-medium tracking-[0.12em] uppercase mb-4
+            text-muted-light/60 dark:text-muted-dark/50">
+            Web Novels
+          </p>
+          <BookGrid items={webnovels} onClick={setSelected} />
+        </div>
       </div>
 
       {/* ===== Detail Modal ===== */}
@@ -208,34 +174,7 @@ export default function BookShelf() {
                     </div>
                   )}
 
-                  {selected.quote && (
-                    <div className="mt-6 p-4 rounded-xl
-                      bg-amber-50 border border-amber-100
-                      dark:bg-amber-500/[0.03] dark:border-amber-500/[0.06]">
-                      <Quote size={14}
-                        className="text-amber-500/60 dark:text-amber-400/40 mb-2" />
-                      <p className="text-sm text-gray-600 dark:text-white/60
-                        italic leading-relaxed">
-                        "{selected.quote}"
-                      </p>
-                    </div>
-                  )}
-
-                  {selected.reflection && (
-                    <div className="mt-5">
-                      <h4 className="text-[11px] font-semibold uppercase tracking-wider
-                        mb-2 flex items-center gap-1.5
-                        text-gray-400 dark:text-white/20">
-                        <BookOpen size={12} /> Reflection
-                      </h4>
-                      <p className="text-sm leading-relaxed
-                        text-gray-600 dark:text-white/50">
-                        {selected.reflection}
-                      </p>
-                    </div>
-                  )}
-
-                  {selected.notes && (
+                  {selected.notes ? (
                     <div className="mt-5">
                       <h4 className="text-[11px] font-semibold uppercase tracking-wider
                         mb-2 flex items-center gap-1.5
@@ -247,17 +186,12 @@ export default function BookShelf() {
                         {selected.notes}
                       </p>
                     </div>
-                  )}
-
-                  {!selected.notes && !selected.reflection && !selected.quote && (
+                  ) : (
                     <div className="mt-8 text-center py-8">
                       <Clock size={24}
                         className="text-gray-200 dark:text-white/10 mx-auto mb-3" />
                       <p className="text-sm text-gray-400 dark:text-white/20 italic">
                         Reading in progress...
-                      </p>
-                      <p className="text-xs text-gray-300 dark:text-white/10 mt-1">
-                        Notes and reflections will appear here.
                       </p>
                     </div>
                   )}
@@ -267,11 +201,11 @@ export default function BookShelf() {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </div>
   );
 }
 
-/* ===== Currently Reading Card ===== */
+/* ===== Reading Card ===== */
 function ReadingCard({
   book,
   index,
@@ -283,235 +217,117 @@ function ReadingCard({
 }) {
   return (
     <motion.button
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ ...springGentle, delay: index * 0.08 }}
-      whileHover={{ y: -4 }}
+      transition={{ ...springGentle, delay: index * 0.06 }}
+      whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="group flex items-center gap-5 p-5 rounded-2xl cursor-pointer text-left
+      className="group flex items-center gap-4 p-4 rounded-xl cursor-pointer text-left
         bg-surface-light dark:bg-surface-dark
         border border-border-light dark:border-border-dark
-        hover:shadow-lg dark:hover:shadow-[0_0_25px_rgba(99,102,241,0.06)]
-        transition-all duration-300"
+        hover:shadow-md transition-all duration-300"
     >
-      {/* Cover */}
       <div className="relative shrink-0">
-        <div className="w-[85px] h-[120px] md:w-[95px] md:h-[135px]
-          rounded-xl overflow-hidden shadow-md
-          ring-1 ring-black/5 dark:ring-white/5
-          group-hover:shadow-xl transition-shadow duration-300">
+        <div className="w-[65px] h-[92px] rounded-lg overflow-hidden shadow-sm
+          ring-1 ring-black/5 dark:ring-white/5">
           <img src={book.cover} alt={book.title}
             className="w-full h-full object-cover
-              group-hover:scale-105 transition-transform duration-500" />
+              group-hover:scale-105 transition-transform duration-400" />
         </div>
-        {/* Progress ring at bottom of cover */}
         <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2
-          bg-surface-light dark:bg-surface-dark rounded-full px-3 py-0.5
+          bg-surface-light dark:bg-surface-dark rounded-full px-2 py-0.5
           border border-border-light dark:border-border-dark shadow-sm">
-          <span className="text-[10px] font-medium text-primary tabular-nums">
+          <span className="text-[9px] font-semibold text-primary tabular-nums">
             {book.progress ?? 0}%
           </span>
         </div>
       </div>
 
-      {/* Info */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex items-center gap-1.5 mb-0.5">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse shrink-0" />
           <span className="text-[10px] font-medium text-amber-600/70 dark:text-amber-400/60">
             在读
           </span>
         </div>
-        <h3 className="text-sm md:text-base font-bold tracking-tight
+        <h3 className="text-sm font-bold tracking-tight truncate
           text-text-light dark:text-white/90
-          group-hover:text-primary dark:group-hover:text-white
-          transition-colors duration-300">
+          group-hover:text-primary transition-colors duration-300">
           {book.title}
         </h3>
-        <p className="text-[11px] md:text-xs text-muted-light dark:text-white/35 mt-1">
+        <p className="text-[11px] text-muted-light dark:text-white/35 mt-0.5 truncate">
           {book.author}
         </p>
-
-        {book.tags && (
-          <div className="flex flex-wrap gap-1 mt-2.5">
-            {book.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="px-1.5 py-0.5 rounded text-[9px]
-                text-muted-light/60 dark:text-white/20
-                bg-gray-100 dark:bg-white/[0.02]">
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Progress bar */}
-        <div className="mt-3">
-          <div className="h-1 rounded-full bg-gray-200 dark:bg-white/[0.04] overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: `${book.progress ?? 0}%` }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="h-full rounded-full bg-primary"
-            />
-          </div>
+        <div className="mt-2 h-1 rounded-full bg-gray-200 dark:bg-white/[0.04] overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: `${book.progress ?? 0}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="h-full rounded-full bg-primary"
+          />
         </div>
       </div>
     </motion.button>
   );
 }
 
-/* ===== Scrollable Shelf Row ===== */
-function ScrollableShelf({
-  label,
+/* ===== Book Grid (vertical scroll, like movies) ===== */
+function BookGrid({
   items,
   onClick,
 }: {
-  label: string;
   items: Book[];
   onClick: (book: Book) => void;
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const updateScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 4);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
-  }, []);
-
-  const scroll = (dir: 'left' | 'right') => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.6;
-    el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' });
-  };
+  if (items.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <p className="text-xs text-gray-300 dark:text-gray-600 italic">coming soon</p>
+      </div>
+    );
+  }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ ...springGentle, delay: 0.12 }}
-    >
-      {/* Header with arrows */}
-      <div className="flex items-center justify-between mb-5">
-        <p className="text-xs font-medium tracking-[0.15em] uppercase
-          text-muted-light/60 dark:text-muted-dark/50">
-          {label}
-          <span className="ml-2 text-[10px] opacity-50">{items.length} books</span>
-        </p>
-
-        <div className="flex items-center gap-1.5">
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => scroll('left')}
-            className={`p-1.5 rounded-lg border transition-all duration-300
-              ${canScrollLeft
-                ? 'border-border-light dark:border-border-dark hover:bg-gray-100 dark:hover:bg-white/5 cursor-pointer opacity-100'
-                : 'border-transparent cursor-default opacity-20'
-              }`}
-          >
-            <ChevronLeft size={15} className="text-muted-light dark:text-white/40" />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => scroll('right')}
-            className={`p-1.5 rounded-lg border transition-all duration-300
-              ${canScrollRight
-                ? 'border-border-light dark:border-border-dark hover:bg-gray-100 dark:hover:bg-white/5 cursor-pointer opacity-100'
-                : 'border-transparent cursor-default opacity-20'
-              }`}
-          >
-            <ChevronRight size={15} className="text-muted-light dark:text-white/40" />
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Scrollable row */}
-      <div
-        ref={scrollRef}
-        onScroll={updateScroll}
-        className="flex gap-3 overflow-x-auto scrollbar-hide pb-2
-          -mx-4 px-4 snap-x snap-mandatory scroll-smooth"
-      >
+    <div className="overflow-y-auto scrollbar-hide max-h-[430px] md:max-h-[530px] rounded-xl pb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pr-1">
         {items.map((book, i) => (
-          <BookCard key={book.id} book={book} index={i} onClick={() => onClick(book)} />
+          <motion.button
+            key={book.id}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ ...springGentle, delay: i * 0.04 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => onClick(book)}
+            className="group relative rounded-xl overflow-hidden cursor-pointer text-left
+              bg-surface-light dark:bg-surface-dark
+              border border-border-light dark:border-border-dark
+              shadow-sm hover:shadow-md transition-shadow duration-300"
+          >
+            <div className="aspect-[2/3] overflow-hidden bg-gray-100 dark:bg-gray-800">
+              <img
+                src={book.cover}
+                alt={book.title}
+                className="w-full h-full object-cover
+                  group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="p-1.5">
+              <h3 className="text-[10px] font-semibold truncate leading-tight
+                text-text-light dark:text-white/80">
+                {book.title}
+              </h3>
+              <p className="text-[9px] text-muted-light dark:text-white/25 truncate mt-0.5">
+                {book.author}
+              </p>
+            </div>
+          </motion.button>
         ))}
       </div>
-    </motion.div>
-  );
-}
-
-/* ===== Book Card (for scrollable row) ===== */
-function BookCard({
-  book,
-  index,
-  onClick,
-}: {
-  book: Book;
-  index: number;
-  onClick: () => void;
-}) {
-  return (
-    <motion.button
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ ...springGentle, delay: index * 0.04 }}
-      whileHover={{ y: -6, transition: springSnappy }}
-      whileTap={{ scale: 0.96 }}
-      onClick={onClick}
-      className="group shrink-0 snap-start flex flex-col rounded-2xl overflow-hidden
-        cursor-pointer text-left w-[150px] md:w-[170px]
-        bg-surface-light dark:bg-surface-dark
-        border border-border-light dark:border-border-dark
-        hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(99,102,241,0.05)]
-        transition-all duration-300"
-    >
-      {/* Cover */}
-      <div className="relative aspect-[2/3] overflow-hidden">
-        <img src={book.cover} alt={book.title}
-          className="w-full h-full object-cover
-            group-hover:scale-[1.06] transition-transform duration-500" />
-
-        <div className="absolute inset-x-0 bottom-0 h-1/3
-          bg-gradient-to-t from-black/20 to-transparent
-          opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-
-        {/* Status dot */}
-        <div className="absolute top-2.5 right-2.5">
-          <span className={`block w-2 h-2 rounded-full border ${statusDot[book.status]}`} />
-        </div>
-
-        {/* Progress bar */}
-        {book.progress != null && book.status === 'reading' && (
-          <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gray-200/50 dark:bg-white/[0.06]">
-            <div className="h-full bg-primary transition-all duration-500"
-              style={{ width: `${book.progress}%` }} />
-          </div>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="p-3 md:p-3.5">
-        <h3 className="text-[13px] md:text-sm font-semibold tracking-tight truncate
-          text-text-light dark:text-white/80
-          group-hover:text-primary dark:group-hover:text-white/95
-          transition-colors duration-300">
-          {book.title}
-        </h3>
-        <p className="text-[10px] md:text-[11px] mt-0.5 truncate
-          text-muted-light dark:text-white/25">
-          {book.author}
-        </p>
-      </div>
-    </motion.button>
+    </div>
   );
 }
