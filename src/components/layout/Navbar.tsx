@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -14,14 +14,51 @@ const navItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [showName, setShowName] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => {
+      // Check if hero title area is scrolled past
+      const heroTitle = document.getElementById('hero-title');
+      if (!heroTitle) return;
+      const rect = heroTitle.getBoundingClientRect();
+      // Show name when title's bottom scrolls above navbar
+      setShowName(rect.bottom < 64);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-light/85 dark:bg-bg-dark/80 backdrop-blur-xl border-b border-gray-100 dark:border-border-dark transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="text-xl font-bold text-primary tracking-tight">
-            Portfolio
+            <AnimatePresence mode="wait">
+              {showName ? (
+                <motion.span
+                  key="name"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  侠大虾 KieranXia
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="emoji"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  🦐
+                </motion.span>
+              )}
+            </AnimatePresence>
           </Link>
 
           {/* Desktop nav */}

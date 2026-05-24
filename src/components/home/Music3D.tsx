@@ -646,7 +646,33 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
         {list.map((album, i) => {
           const hasAudio = album.tracks.some((t) => t.src);
           const isPlaylist = album.type === 'playlist';
-          const isHero = i === 0 && hasAudio && !isPlaylist;
+          const isSingle = album.type === 'single';
+          const isHero = i === 0 && hasAudio && !isPlaylist && !isSingle;
+
+          if (isSingle) {
+            return (
+              <motion.button
+                key={album.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ ...springGentle, delay: i * 0.05 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => onSelect(album)}
+                className="col-span-2 flex items-center gap-3 p-2.5 rounded-lg bg-surface-light/40 dark:bg-surface-dark/40 border border-gray-100/50 dark:border-gray-700/50 hover:bg-surface-light/60 dark:hover:bg-surface-dark/60 transition-all text-left cursor-pointer"
+              >
+                <div className="w-5 h-5 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0">
+                  <span className="text-[9px] text-gray-400">&#9835;</span>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-xs font-medium dark:text-white truncate">{album.title}</h3>
+                  {album.artist && <p className="text-[10px] text-gray-400 truncate">{album.artist}</p>}
+                </div>
+                <span className="text-[9px] text-gray-300 dark:text-gray-600 shrink-0">暂无版权</span>
+              </motion.button>
+            );
+          }
 
           if (isPlaylist) {
             return (
@@ -685,7 +711,7 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
                 onClick={() => onSelect(album)}
                 className="col-span-2 flex items-center gap-5 p-5 rounded-2xl bg-surface-light dark:bg-surface-dark border-2 border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all text-left cursor-pointer"
               >
-                <img src={album.cover} alt={album.title} className="w-24 h-24 rounded-xl object-cover shadow-md shrink-0" />
+                {album.cover ? <img src={album.cover} alt={album.title} className="w-24 h-24 rounded-xl object-cover shadow-md shrink-0" /> : <div className="w-24 h-24 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-md shrink-0 flex items-center justify-center"><span className="text-xs text-gray-400">{album.title.slice(0,2)}</span></div>}
                 <div className="min-w-0">
                   <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary">可播放</span>
                   <h3 className="text-lg font-bold dark:text-white mt-1 truncate">{album.title}</h3>
@@ -712,7 +738,7 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
                 : 'bg-surface-light dark:bg-surface-dark border-gray-100 dark:border-border-dark hover:shadow-md'
             }`}
           >
-            <img src={album.cover} alt={album.title} className="w-16 h-16 rounded-lg object-cover shadow-sm shrink-0" />
+            {album.cover ? <img src={album.cover} alt={album.title} className="w-16 h-16 rounded-lg object-cover shadow-sm shrink-0" /> : <div className="w-16 h-16 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-sm shrink-0 flex items-center justify-center"><span className="text-[10px] text-gray-400">{album.title.slice(0,3)}</span></div>}
             <div className="min-w-0">
               <h3 className={`text-sm font-semibold truncate ${hasAudio ? 'dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}>{album.title}</h3>
               <p className="text-xs text-gray-400 truncate mt-0.5">{album.artist}</p>

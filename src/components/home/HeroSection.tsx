@@ -11,7 +11,7 @@ export default function HeroSection() {
       {/* Animated background grid */}
       <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]">
         <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, #6366f1 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, var(--color-primary) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
         }} />
       </div>
@@ -40,10 +40,11 @@ export default function HeroSection() {
 
         {/* Name & Title */}
         <motion.h1
+          id="hero-title"
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ ...springGentle, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-purple-500 bg-clip-text text-transparent"
+          className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
         >
           {profile.name} {profile.nameEn}
         </motion.h1>
