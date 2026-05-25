@@ -35,7 +35,17 @@ export default function MusicSection() {
   }, []);
 
   return (
-    <section className="pt-[76px] pb-[76px] w-full">
+    <section className="pt-[76px] pb-[76px] w-full relative">
+      <AnimatePresence>
+        {ctx.view === 'playing' && (
+          <motion.div {...slideUp} className="absolute top-[116px] left-[44px] z-30">
+            <motion.button onClick={ctx.handleBack} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 text-sm text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-white dark:hover:bg-gray-700 transition-all shadow-sm">
+              <ArrowLeft size={16} /> 返回
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <motion.h2
         ref={ctx.headingRef as any}
         initial={{ opacity: 0, y: 20 }}
@@ -79,10 +89,6 @@ export default function MusicSection() {
             <AnimatePresence>
               {ctx.view === 'playing' && ctx.selected && (
                 <motion.div key="playing-ctrls" {...slideUp} className="w-full mt-10">
-                  <motion.button onClick={ctx.handleBack} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-1.5 mb-3 text-sm text-gray-400 hover:text-primary transition-colors">
-                    <ArrowLeft size={14} /> 返回
-                  </motion.button>
                   <PlayerControls
                     album={ctx.selected}
                     currentTrack={ctx.currentTrack}
@@ -200,7 +206,7 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
     <div className="overflow-y-auto scrollbar-hide rounded-xl" style={{ maxHeight: 'var(--dth)' } as React.CSSProperties}>
       <div className="grid grid-cols-2 gap-3 pr-1">
         {sorted.map((album, i) => {
-          const hasAudio = album.tracks.some((t) => t.src);
+          const hasAudio = album.tracks.some((t: Track) => t.src || t.neteaseId);
           const isSingle = album.type === 'single';
           const isPlaylist = album.type === 'playlist';
           const isHero = i === 0 && hasAudio && !isPlaylist && !isSingle;
@@ -211,7 +217,7 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
                 className="col-span-2 flex items-center gap-2.5 p-2 rounded-lg bg-surface-light/40 dark:bg-surface-dark/40 border border-gray-100/50 dark:border-gray-700/50 hover:bg-surface-light/60 dark:hover:bg-surface-dark/60 transition-all text-left cursor-pointer">
                 <div className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center shrink-0"><span className="text-[10px] text-gray-400">&#9835;</span></div>
                 <div className="min-w-0 flex-1"><h3 className="text-sm font-medium dark:text-white truncate">{album.title}</h3>{album.artist && <p className="text-sm text-gray-400 truncate">{album.artist}</p>}</div>
-                <span className="text-[11px] text-gray-300 dark:text-gray-600 shrink-0">暂无版权</span>
+                <span className="text-[11px] text-gray-300 dark:text-gray-600 shrink-0">&#9835;</span>
               </motion.button>
             );
           }
@@ -229,7 +235,7 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
               <motion.button key={album.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ ...springGentle, delay: i * 0.04 }} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }} onClick={() => onSelect(album)}
                 className="col-span-2 flex items-center gap-4 p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border-2 border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all text-left cursor-pointer">
                 {album.cover ? <img loading="lazy" decoding="async" src={album.cover} alt={album.title} className="w-20 h-20 rounded-xl object-cover shadow-md shrink-0" /> : <div className="w-20 h-20 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-md shrink-0 flex items-center justify-center"><span className="text-sm text-gray-400">{album.title.slice(0, 2)}</span></div>}
-                <div className="min-w-0"><span className="px-1.5 py-0.5 rounded text-sm font-medium bg-primary/10 text-primary">可播放</span><h3 className="text-lg font-bold dark:text-white mt-1 truncate">{album.title}</h3><p className="text-base text-gray-400 truncate mt-0.5">{album.artist}</p><p className="text-sm text-gray-400 mt-1">{album.tracks.length} 首</p></div>
+                <div className="min-w-0"><h3 className="text-lg font-bold dark:text-white truncate">{album.title}</h3><p className="text-base text-gray-400 truncate mt-0.5">{album.artist}</p><p className="text-sm text-gray-400 mt-1">{album.tracks.length} 首</p></div>
               </motion.button>
             );
           }
@@ -238,7 +244,7 @@ function RecordGrid({ albums: list, onSelect }: { albums: Album[]; onSelect: (a:
               className="flex items-center gap-3 p-2.5 rounded-xl border transition-shadow text-left cursor-pointer bg-surface-light dark:bg-surface-dark border-gray-100 dark:border-border-dark hover:shadow-md">
               {album.cover ? <img loading="lazy" decoding="async" src={album.cover} alt={album.title} className="w-14 h-14 rounded-lg object-cover shadow-sm shrink-0" /> : <div className="w-14 h-14 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-sm shrink-0 flex items-center justify-center"><span className="text-sm text-gray-400">{album.title.slice(0, 3)}</span></div>}
               <div className="min-w-0"><h3 className="text-base font-semibold dark:text-white truncate">{album.title}</h3><p className="text-sm text-gray-400 truncate mt-0.5">{album.artist}</p>
-                <p className="text-sm mt-0.5 flex items-center gap-1"><span className="text-gray-400">{album.tracks.length} 首</span>{hasAudio ? <span className="px-1 py-px rounded text-[11px] font-medium bg-primary/10 text-primary">可播</span> : <span className="px-1 py-px rounded text-[11px] text-gray-400 dark:text-gray-400 border border-gray-300 dark:border-gray-600">暂无版权</span>}</p>
+                <p className="text-sm mt-0.5 text-gray-400">{album.tracks.length} 首</p>
               </div>
             </motion.button>
           );
@@ -260,13 +266,13 @@ function AlbumDetail({ album, currentTrack, onTrackClick, onBack, onTogglePlay }
       </div>
       <div className="flex-1 space-y-0.5">
         {album.tracks.map((track, i) => {
-          const hasSrc = !!track.src;
+          const canPlay = !!(track.src || track.neteaseId);
           return (
-            <motion.button key={i} onClick={hasSrc ? () => onTrackClick(i) : undefined} whileHover={hasSrc ? { x: 3 } : undefined} whileTap={hasSrc ? { scale: 0.98 } : undefined}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left ${!hasSrc ? 'cursor-default' : currentTrack === i ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}>
+            <motion.button key={i} onClick={canPlay ? () => onTrackClick(i) : undefined} whileHover={canPlay ? { x: 3 } : undefined} whileTap={canPlay ? { scale: 0.98 } : undefined}
+              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left ${!canPlay ? 'cursor-default' : currentTrack === i ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}>
               <span className="text-sm w-5 text-right shrink-0" style={{ color: currentTrack === i ? 'inherit' : '#94a3b8' }}>{currentTrack === i ? <Volume2 size={13} className="inline" /> : i + 1}</span>
               <span className={`text-base flex-1 truncate ${currentTrack === i ? 'font-semibold' : 'dark:text-white'}`}>{track.title}</span>
-              {hasSrc ? <span className="text-sm text-gray-400 shrink-0">{track.duration}</span> : <span className="text-sm text-gray-400 dark:text-gray-500 shrink-0">暂无</span>}
+              <span className="text-sm text-gray-400 shrink-0">{track.duration || '—'}</span>
             </motion.button>
           );
         })}
@@ -403,13 +409,13 @@ function LyricsPanel({ album, currentTrack, currentTime, lyrics, onTrackClick }:
           >
             <div className="space-y-0.5 pb-1 max-h-[200px] overflow-y-auto scrollbar-hide">
               {album.tracks.map((t: Track, i: number) => {
-                const canPlay = !!t.src;
+                const canPlay = !!(t.src || t.neteaseId);
                 return (
                   <motion.button key={i} onClick={canPlay ? () => onTrackClick(i) : undefined} whileHover={canPlay ? { x: 3 } : undefined} whileTap={canPlay ? { scale: 0.98 } : undefined}
                     className={`w-full flex items-center gap-3 px-2 py-1 rounded-lg text-left transition-colors ${!canPlay ? 'cursor-default' : i === currentTrack ? 'bg-primary/10 text-primary' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 text-gray-500 dark:text-gray-400'}`}>
                     <span className="text-sm w-5 text-right shrink-0">{i === currentTrack ? <Volume2 size={12} className="inline" /> : i + 1}</span>
                     <span className={`text-sm flex-1 truncate ${i === currentTrack ? 'font-semibold text-primary' : ''}`}>{t.title}</span>
-                    {canPlay ? <span className="text-sm opacity-60 shrink-0">{t.duration}</span> : <span className="text-sm text-gray-400 dark:text-gray-500 shrink-0">暂无</span>}
+                    <span className="text-sm opacity-60 shrink-0">{t.duration || '—'}</span>
                   </motion.button>
                 );
               })}

@@ -4,6 +4,7 @@ export interface Track {
   description: string;
   src?: string;
   lrc?: string;
+  neteaseId?: number;
 }
 
 export interface Album {
@@ -68,16 +69,16 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/r1AKMenByofI7Qqj3E5EqQ==/109951172091080013.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '银色荒原', duration: '', description: '暂无版权' },
-      { title: '火山灰', duration: '', description: '暂无版权' },
-      { title: '春天的临终', duration: '', description: '暂无版权' },
-      { title: '飞鸟在风暴中', duration: '', description: '暂无版权' },
-      { title: '奇卡奇卡', duration: '', description: '暂无版权' },
-      { title: '变色龙 (feat. 吴青峰)', duration: '', description: '暂无版权' },
-      { title: '没有羊的牧羊人', duration: '', description: '暂无版权' },
-      { title: '请求迷失在七月森林 (feat. 孙盛希)', duration: '', description: '暂无版权' },
-      { title: '我们不要躲雨了', duration: '', description: '暂无版权' },
-      { title: '寻找一片青草地', duration: '', description: '暂无版权' },
+      { title: '银色荒原', duration: '', description: '暂无版权', neteaseId: 2750712892 },
+      { title: '火山灰', duration: '', description: '暂无版权', neteaseId: 2750712063 },
+      { title: '春天的临终', duration: '', description: '暂无版权', neteaseId: 2733730415 },
+      { title: '飞鸟在风暴中', duration: '', description: '暂无版权', neteaseId: 2750712929 },
+      { title: '奇卡奇卡', duration: '', description: '暂无版权', neteaseId: 2750712088 },
+      { title: '变色龙 (feat. 吴青峰)', duration: '', description: '暂无版权', neteaseId: 2727773182 },
+      { title: '没有羊的牧羊人', duration: '', description: '暂无版权', neteaseId: 2731314002 },
+      { title: '请求迷失在七月森林 (feat. 孙盛希)', duration: '', description: '暂无版权', neteaseId: 2750712095 },
+      { title: '我们不要躲雨了', duration: '', description: '暂无版权', neteaseId: 2735198598 },
+      { title: '寻找一片青草地', duration: '', description: '暂无版权', neteaseId: 2750712970 },
     ],
   },
   {
@@ -87,8 +88,16 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/vhhqD6EjGkvwpfwqDSlEuA==/109951170223320914.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '一个人默默的酷', duration: '', description: '暂无版权' },
-      { title: '要不要跟我出去走一走', duration: '', description: '暂无版权' },
+      { title: '1234!', duration: '', description: '', neteaseId: 2163224300 },
+      { title: '要不要跟我出去走一走', duration: '', description: '', neteaseId: 2132538832 },
+      { title: '一个人默默的酷', duration: '', description: '', neteaseId: 2102651667 },
+      { title: '三号出口', duration: '', description: '', neteaseId: 2163224302 },
+      { title: '星星 (Album Ver.)', duration: '', description: '', neteaseId: 2163226765 },
+      { title: '人生赛车场', duration: '', description: '', neteaseId: 2163226766 },
+      { title: 'unknown', duration: '', description: '', neteaseId: 2163224303 },
+      { title: '你习惯了', duration: '', description: '', neteaseId: 2163226767 },
+      { title: '逐渐抽离你的惯性', duration: '', description: '', neteaseId: 2163224304 },
+      { title: '其实我一点都不酷', duration: '', description: '', neteaseId: 2163226768 },
     ],
   },
   {
@@ -98,18 +107,18 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/EjyEKuuM_xoag8Jg-2AewQ==/109951169188739215.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '伊始', duration: '', description: '暂无版权' },
-      { title: '胚胎', duration: '', description: '暂无版权' },
-      { title: '练声曲', duration: '', description: '暂无版权' },
-      { title: '色盲', duration: '', description: '暂无版权' },
-      { title: '今天吃点什么好', duration: '', description: '暂无版权' },
-      { title: '斯德哥尔摩难题', duration: '', description: '暂无版权' },
-      { title: '体无完肤', duration: '', description: '暂无版权' },
-      { title: '麻烦删掉狮子座', duration: '', description: '暂无版权' },
-      { title: '饥饿女士', duration: '', description: '暂无版权' },
-      { title: '瘸子之舞', duration: '', description: '暂无版权' },
-      { title: '缺氧', duration: '', description: '暂无版权' },
-      { title: '骨骼谢幕', duration: '', description: '暂无版权' },
+      { title: '伊始', duration: '', description: '暂无版权', neteaseId: 2110379065 },
+      { title: '胚胎', duration: '', description: '暂无版权', neteaseId: 2103743380 },
+      { title: '练声曲', duration: '', description: '暂无版权', neteaseId: 2110379115 },
+      { title: '色盲', duration: '', description: '暂无版权', neteaseId: 2023212774 },
+      { title: '今天吃点什么好', duration: '', description: '暂无版权', neteaseId: 2110379120 },
+      { title: '斯德哥尔摩难题', duration: '', description: '暂无版权', neteaseId: 2110380845 },
+      { title: '体无完肤', duration: '', description: '暂无版权', neteaseId: 2110379130 },
+      { title: '麻烦删掉狮子座', duration: '', description: '暂无版权', neteaseId: 2073790213 },
+      { title: '饥饿女士', duration: '', description: '暂无版权', neteaseId: 2110379131 },
+      { title: '瘸子之舞', duration: '', description: '暂无版权', neteaseId: 2110379139 },
+      { title: '缺氧', duration: '', description: '暂无版权', neteaseId: 2110380864 },
+      { title: '骨骼谢幕', duration: '', description: '暂无版权', neteaseId: 2107899468 },
     ],
   },
   {
@@ -119,8 +128,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/dlsDdLopwJrE8JlWgWbaOA==/109951170031584299.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '才二十三', duration: '', description: '暂无版权' },
-      { title: 'BB88', duration: '', description: '暂无版权' },
+      { title: '才二十三', duration: '', description: '暂无版权', neteaseId: 2619125556 },
     ],
   },
   {
@@ -130,7 +138,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/4KDBaQXnQywQovmqvjx-8Q==/109951164444131697.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '冬眠', duration: '', description: '暂无版权' },
+      { title: '冬眠', duration: '', description: '暂无版权', neteaseId: 1398663411 },
     ],
   },
   {
@@ -140,9 +148,9 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/o7BUSqgJTjvMDgkIDoC2Vg==/109951169598043440.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '荔枝', duration: '', description: '暂无版权' },
-      { title: '椰子船', duration: '', description: '暂无版权' },
-      { title: '薛定谔果', duration: '', description: '暂无版权' },
+      { title: '荔枝', duration: '', description: '暂无版权', neteaseId: 1987834234 },
+      { title: '椰子船', duration: '', description: '暂无版权', neteaseId: 2156913576 },
+      { title: '薛定谔果', duration: '', description: '暂无版权', neteaseId: 2156913337 },
     ],
   },
   {
@@ -152,14 +160,14 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/RKPyDWCG43iUFjM7WfzruA==/109951164567769090.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '颁奖的时候我要缺席', duration: '', description: '暂无版权' },
-      { title: '老古董', duration: '', description: '暂无版权' },
-      { title: '瑞贝卡', duration: '', description: '暂无版权' },
-      { title: 'K 先生', duration: '', description: '暂无版权' },
-      { title: '莫比乌斯号的船医', duration: '', description: '暂无版权' },
-      { title: '弟弟', duration: '', description: '暂无版权' },
-      { title: '黑乌鸦和少女', duration: '', description: '暂无版权' },
-      { title: '北海道恋人', duration: '', description: '暂无版权' },
+      { title: '颁奖的时候我要缺席', duration: '', description: '暂无版权', neteaseId: 1410701715 },
+      { title: '老古董', duration: '', description: '暂无版权', neteaseId: 1410701018 },
+      { title: '瑞贝卡', duration: '', description: '暂无版权', neteaseId: 1401726358 },
+      { title: 'K 先生', duration: '', description: '暂无版权', neteaseId: 1410701890 },
+      { title: '莫比乌斯号的船医', duration: '', description: '暂无版权', neteaseId: 1398654758 },
+      { title: '弟弟', duration: '', description: '暂无版权', neteaseId: 1410707194 },
+      { title: '黑乌鸦和少女', duration: '', description: '暂无版权', neteaseId: 1410707394 },
+      { title: '北海道恋人', duration: '', description: '暂无版权', neteaseId: 1405541519 },
     ],
   },
   {
@@ -169,7 +177,16 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/MgH6SepYHboKPr6FR8yg-w==/109951167040040692.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '天外来物', duration: '', description: '暂无版权' },
+      { title: '天外来物', duration: '', description: '', neteaseId: 1463165983 },
+      { title: '迟迟', duration: '', description: '', neteaseId: 1808053189 },
+      { title: '把你揉碎捏成苹果', duration: '', description: '', neteaseId: 1806096611 },
+      { title: '野心', duration: '', description: '', neteaseId: 1803349526 },
+      { title: '彩券', duration: '', description: '', neteaseId: 1486513704 },
+      { title: '不爱我', duration: '', description: '', neteaseId: 1463168014 },
+      { title: '潘金莲', duration: '', description: '', neteaseId: 1808157402 },
+      { title: '耗尽', duration: '', description: '', neteaseId: 1498342485 },
+      { title: '小尖尖', duration: '', description: '', neteaseId: 1473782328 },
+      { title: '纸船', duration: '', description: '', neteaseId: 1442312981 },
     ],
   },
   {
@@ -179,7 +196,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/mIUtHBPTJ52H78_FhHzcWg==/19188676928210304.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '无人之岛', duration: '', description: '暂无版权' },
+      { title: '无人之岛', duration: '', description: '暂无版权', neteaseId: 493735012 },
     ],
   },
   {
@@ -189,7 +206,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/FgYDnoq4SghGICjtWE1tfA==/109951165915191681.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '飞鸟和蝉', duration: '', description: '暂无版权' },
+      { title: '飞鸟和蝉', duration: '', description: '暂无版权', neteaseId: 1954930391 },
     ],
   },
   {
@@ -199,8 +216,8 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/TOkRGd59o3hAOKsnMMmMMA==/109951163755246383.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '天份', duration: '', description: '暂无版权' },
-      { title: '哑巴', duration: '', description: '暂无版权' },
+      { title: '天份', duration: '', description: '暂无版权', neteaseId: 1334647784 },
+      { title: '哑巴', duration: '', description: '暂无版权', neteaseId: 557583281 },
     ],
   },
   {
@@ -210,7 +227,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/fNbj5uDwltSDLbETdnEYYQ==/109951163069265719.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '像风一样', duration: '', description: '暂无版权' },
+      { title: '像风一样', duration: '', description: '暂无版权', neteaseId: 516657051 },
     ],
   },
   {
@@ -220,7 +237,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/AyyxC4stCu-Pm5qa8gaqDQ==/18762066418246617.jpg',
     genre: 'Folk',
     tracks: [
-      { title: '我喜欢上你时的内心活动', duration: '', description: '暂无版权' },
+      { title: '我喜欢上你时的内心活动', duration: '', description: '暂无版权', neteaseId: 471403427 },
     ],
   },
   {
@@ -230,7 +247,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/T0MxUmfR138wswQxKFuRBg==/109951169303184083.jpg',
     genre: 'Rock',
     tracks: [
-      { title: '浪子回头', duration: '', description: '暂无版权' },
+      { title: '浪子回头', duration: '', description: '暂无版权', neteaseId: 516728102 },
     ],
   },
   {
@@ -240,7 +257,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/wSMfGvFzOAYRU_yVIfquAA==/2946691248081599.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '水星记', duration: '', description: '暂无版权' },
+      { title: '水星记', duration: '', description: '暂无版权', neteaseId: 441491828 },
     ],
   },
   {
@@ -250,7 +267,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/pUVA3A7XBN2WwGNXSPz4Og==/109951165958860830.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '你啊你啊', duration: '', description: '暂无版权' },
+      { title: '你啊你啊', duration: '', description: '暂无版权', neteaseId: 440208470 },
     ],
   },
   {
@@ -260,8 +277,8 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/-UEqoOLy2P4dWzH3WrBlbA==/109951167164989067.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '小小虫', duration: '', description: '暂无版权' },
-      { title: '三人游', duration: '', description: '暂无版权' },
+      { title: '小小虫', duration: '', description: '暂无版权', neteaseId: 28029120 },
+      { title: '三人游', duration: '', description: '暂无版权', neteaseId: 28029112 },
     ],
   },
   {
@@ -271,8 +288,8 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/oVJmUJ1bPb_9eBOFCKLclQ==/109951163167730852.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '天真有邪', duration: '', description: '暂无版权' },
-      { title: '兜圈', duration: '', description: '暂无版权' },
+      { title: '天真有邪', duration: '', description: '暂无版权', neteaseId: 41579348 },
+      { title: '兜圈', duration: '', description: '暂无版权', neteaseId: 3327859062 },
     ],
   },
   {
@@ -282,7 +299,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/L8SZ53Nf5le4JDvG6qVB6g==/1424967072083597.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '疑心病', duration: '', description: '暂无版权' },
+      { title: '疑心病', duration: '', description: '暂无版权', neteaseId: 405599470 },
     ],
   },
   {
@@ -292,7 +309,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/vu7SHbVlMuszmSuKR2SKAQ==/109951168707343730.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '演员', duration: '', description: '暂无版权' },
+      { title: '演员', duration: '', description: '暂无版权', neteaseId: 32507038 },
     ],
   },
   {
@@ -302,7 +319,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/8qQyR1IArFfftFttSyqEGQ==/109951171855839606.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '手写的从前', duration: '', description: '暂无版权' },
+      { title: '手写的从前', duration: '', description: '暂无版权', neteaseId: 29535481 },
     ],
   },
   {
@@ -312,7 +329,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/3Y0A55OzEnqKNiH5ODA54A==/109951172683046522.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '特别的人', duration: '', description: '暂无版权' },
+      { title: '特别的人', duration: '', description: '暂无版权', neteaseId: 28403111 },
     ],
   },
   {
@@ -322,7 +339,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/D_hiKMwrdQlqD36LoKLO2w==/109951163187408030.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '原来', duration: '', description: '暂无版权' },
+      { title: '原来', duration: '', description: '暂无版权', neteaseId: 108806 },
     ],
   },
   {
@@ -332,8 +349,8 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/oL_TYdmT9mm_erNZb187_g==/109951163533013578.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '红尘客栈', duration: '', description: '暂无版权' },
-      { title: '乌克丽丽', duration: '', description: '暂无版权' },
+      { title: '红尘客栈', duration: '', description: '暂无版权', neteaseId: 25643042 },
+      { title: '乌克丽丽', duration: '', description: '暂无版权', neteaseId: 25643038 },
     ],
   },
   {
@@ -343,7 +360,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/8I4zvpNSsj--wGNg-mE2kw==/109951168870428045.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '麦恩莉', duration: '', description: '暂无版权' },
+      { title: '麦恩莉', duration: '', description: '暂无版权', neteaseId: 25648006 },
     ],
   },
   {
@@ -353,7 +370,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/os7qbSSng_yni2ZFouUryw==/109951163167636205.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '说谎', duration: '', description: '暂无版权' },
+      { title: '说谎', duration: '', description: '暂无版权', neteaseId: 108914 },
     ],
   },
   {
@@ -363,8 +380,8 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/aRmkU-iV0yt0F6UTdEAN3A==/19123805742099070.jpg',
     genre: 'Pop',
     tracks: [
-      { title: 'Mine Mine', duration: '', description: '暂无版权' },
-      { title: '疗伤烧肉粽', duration: '', description: '暂无版权' },
+      { title: 'Mine Mine', duration: '', description: '暂无版权', neteaseId: 186055 },
+      { title: '疗伤烧肉粽', duration: '', description: '暂无版权', neteaseId: 186056 },
     ],
   },
   {
@@ -374,7 +391,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/QKCkMMW_fPDcczRNb0qZyg==/109951168163257789.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '情歌', duration: '', description: '暂无版权' },
+      { title: '情歌', duration: '', description: '暂无版权', neteaseId: 254102 },
     ],
   },
   {
@@ -384,12 +401,12 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/4E5b_0eDTiMCzYKiVSAerw==/19165587184063665.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '说了再见', duration: '', description: '暂无版权' },
-      { title: '烟花易冷', duration: '', description: '暂无版权' },
-      { title: '好久不见', duration: '', description: '暂无版权' },
-      { title: '雨下一整晚', duration: '', description: '暂无版权' },
-      { title: '我落泪・情绪零碎', duration: '', description: '暂无版权' },
-      { title: '爱的飞行日记', duration: '', description: '暂无版权' },
+      { title: '说了再见', duration: '', description: '暂无版权', neteaseId: 186097 },
+      { title: '烟花易冷', duration: '', description: '暂无版权', neteaseId: 186098 },
+      { title: '好久不见', duration: '', description: '暂无版权', neteaseId: 186100 },
+      { title: '雨下一整晚', duration: '', description: '暂无版权', neteaseId: 186101 },
+      { title: '我落泪・情绪零碎', duration: '', description: '暂无版权', neteaseId: 186102 },
+      { title: '爱的飞行日记', duration: '', description: '暂无版权', neteaseId: 186103 },
     ],
   },
   {
@@ -399,8 +416,8 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/LI3duoHIZyyLawRJLY51kA==/109951172024569374.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '当你', duration: '', description: '暂无版权' },
-      { title: '一生的爱', duration: '', description: '暂无版权' },
+      { title: '当你', duration: '', description: '暂无版权', neteaseId: 390726 },
+      { title: '一生的爱', duration: '', description: '暂无版权', neteaseId: 390733 },
     ],
   },
   {
@@ -410,7 +427,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/t3ogpTd1bIJpwokhkpBtwQ==/109951169829246225.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '素颜', duration: '', description: '暂无版权' },
+      { title: '素颜', duration: '', description: '暂无版权', neteaseId: 167827 },
     ],
   },
   {
@@ -420,7 +437,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/T6EwKjP4pIVAQiX17prmeQ==/109951163612079871.jpg',
     genre: 'Folk',
     tracks: [
-      { title: '鱼', duration: '', description: '暂无版权' },
+      { title: '鱼', duration: '', description: '暂无版权', neteaseId: 209115 },
     ],
   },
   {
@@ -430,8 +447,8 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/Zg4XDfsiRi5vawjSWPP8Ng==/109951172899966259.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '有何不可', duration: '', description: '暂无版权' },
-      { title: '如果当时', duration: '', description: '暂无版权' },
+      { title: '有何不可', duration: '', description: '暂无版权', neteaseId: 167876 },
+      { title: '如果当时', duration: '', description: '暂无版权', neteaseId: 167870 },
     ],
   },
   {
@@ -441,10 +458,10 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/HBanuZpt8SD2kf15AFa6Og==/109951163200234839.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '花海', duration: '', description: '暂无版权' },
-      { title: '说好的幸福呢', duration: '', description: '暂无版权' },
-      { title: '兰亭序', duration: '', description: '暂无版权' },
-      { title: '稻香', duration: '', description: '暂无版权' },
+      { title: '花海', duration: '', description: '暂无版权', neteaseId: 186023 },
+      { title: '说好的幸福呢', duration: '', description: '暂无版权', neteaseId: 186010 },
+      { title: '兰亭序', duration: '', description: '暂无版权', neteaseId: 186026 },
+      { title: '稻香', duration: '', description: '暂无版权', neteaseId: 186022 },
     ],
   },
   {
@@ -454,7 +471,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/m1Jv3k4Yl4kpBv62NPjGHQ==/109951172814148796.jpg',
     genre: 'Pop',
     tracks: [
-      { title: 'Always Online', duration: '', description: '暂无版权' },
+      { title: 'Always Online', duration: '', description: '暂无版权', neteaseId: 390740 },
     ],
   },
   {
@@ -464,12 +481,12 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/STWQpRLgUBOcXQIDPoEL_A==/109951163533011733.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '牛仔很忙', duration: '', description: '暂无版权' },
-      { title: '彩虹', duration: '', description: '暂无版权' },
-      { title: '青花瓷', duration: '', description: '暂无版权' },
-      { title: '蒲公英的约定', duration: '', description: '暂无版权' },
-      { title: '我不配', duration: '', description: '暂无版权' },
-      { title: '最长的电影', duration: '', description: '暂无版权' },
+      { title: '牛仔很忙', duration: '', description: '暂无版权', neteaseId: 186048 },
+      { title: '彩虹', duration: '', description: '暂无版权', neteaseId: 186017 },
+      { title: '青花瓷', duration: '', description: '暂无版权', neteaseId: 186020 },
+      { title: '蒲公英的约定', duration: '', description: '暂无版权', neteaseId: 186014 },
+      { title: '我不配', duration: '', description: '暂无版权', neteaseId: 186016 },
+      { title: '最长的电影', duration: '', description: '暂无版权', neteaseId: 186025 },
     ],
   },
   {
@@ -479,8 +496,8 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/o_OjL_NZNoeog9fIjBXAyw==/18782957139233959.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '爱情转移', duration: '', description: '暂无版权' },
-      { title: '好久不见', duration: '', description: '暂无版权' },
+      { title: '爱情转移', duration: '', description: '暂无版权', neteaseId: 65536 },
+      { title: '好久不见', duration: '', description: '暂无版权', neteaseId: 65538 },
     ],
   },
   {
@@ -490,7 +507,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/wF25xzePLml5EGUWM2eInw==/109951173219336672.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '我怀念的', duration: '', description: '暂无版权' },
+      { title: '我怀念的', duration: '', description: '暂无版权', neteaseId: 287063 },
     ],
   },
   {
@@ -500,7 +517,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/8fTdTkzJUc4jEcoiV5JNtw==/109951168870789373.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '爱在', duration: '', description: '暂无版权' },
+      { title: '爱在', duration: '', description: '暂无版权', neteaseId: 82366 },
     ],
   },
   {
@@ -510,11 +527,11 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/06Yhj36Qu3ZCQJklc9MNKg==/7980255395852522.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '夜的第七章', duration: '', description: '暂无版权' },
-      { title: '听妈妈的话', duration: '', description: '暂无版权' },
-      { title: '退后', duration: '', description: '暂无版权' },
-      { title: '白色风车', duration: '', description: '暂无版权' },
-      { title: '菊花台', duration: '', description: '暂无版权' },
+      { title: '夜的第七章', duration: '', description: '暂无版权', neteaseId: 186060 },
+      { title: '听妈妈的话', duration: '', description: '暂无版权', neteaseId: 186057 },
+      { title: '退后', duration: '', description: '暂无版权', neteaseId: 186059 },
+      { title: '白色风车', duration: '', description: '暂无版权', neteaseId: 186061 },
+      { title: '菊花台', duration: '', description: '暂无版权', neteaseId: 186058 },
     ],
   },
   {
@@ -524,7 +541,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/2UjnKgcM1IXxYxhHEXVa4Q==/109951168870794250.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '爱爱爱', duration: '', description: '暂无版权' },
+      { title: '爱爱爱', duration: '', description: '暂无版权', neteaseId: 82453 },
     ],
   },
   {
@@ -534,13 +551,13 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/c6UWJU9iGaHGits7IqecRQ==/109951167749320136.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '夜曲', duration: '', description: '暂无版权' },
-      { title: '发如雪', duration: '', description: '暂无版权' },
-      { title: '枫', duration: '', description: '暂无版权' },
-      { title: '浪漫手机', duration: '', description: '暂无版权' },
-      { title: '麦芽糖', duration: '', description: '暂无版权' },
-      { title: '珊瑚海', duration: '', description: '暂无版权' },
-      { title: '一路向北', duration: '', description: '暂无版权' },
+      { title: '夜曲', duration: '', description: '暂无版权', neteaseId: 186019 },
+      { title: '发如雪', duration: '', description: '暂无版权', neteaseId: 186012 },
+      { title: '枫', duration: '', description: '暂无版权', neteaseId: 186021 },
+      { title: '浪漫手机', duration: '', description: '暂无版权', neteaseId: 186050 },
+      { title: '麦芽糖', duration: '', description: '暂无版权', neteaseId: 186051 },
+      { title: '珊瑚海', duration: '', description: '暂无版权', neteaseId: 186052 },
+      { title: '一路向北', duration: '', description: '暂无版权', neteaseId: 186024 },
     ],
   },
   {
@@ -550,7 +567,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/NbGB1_vTJ6jX4B2r_I-EvA==/109951172349668373.jpg',
     genre: 'Folk',
     tracks: [
-      { title: '旅行的意义', duration: '', description: '暂无版权' },
+      { title: '旅行的意义', duration: '', description: '暂无版权', neteaseId: 209228 },
     ],
   },
   {
@@ -560,11 +577,11 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/P1goeQ7SoxEkFsb4ZDijMw==/7746059418324672.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '七里香', duration: '', description: '暂无版权' },
-      { title: '借口', duration: '', description: '暂无版权' },
-      { title: '搁浅', duration: '', description: '暂无版权' },
-      { title: '园游会', duration: '', description: '暂无版权' },
-      { title: '止战之殇', duration: '', description: '暂无版权' },
+      { title: '七里香', duration: '', description: '暂无版权', neteaseId: 186009 },
+      { title: '借口', duration: '', description: '暂无版权', neteaseId: 186039 },
+      { title: '搁浅', duration: '', description: '暂无版权', neteaseId: 186008 },
+      { title: '园游会', duration: '', description: '暂无版权', neteaseId: 186044 },
+      { title: '止战之殇', duration: '', description: '暂无版权', neteaseId: 186045 },
     ],
   },
   {
@@ -574,7 +591,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/Gk4t93WwafRZtt9nTS77Iw==/109951171891430447.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '江南', duration: '', description: '暂无版权' },
+      { title: '江南', duration: '', description: '暂无版权', neteaseId: 390720 },
     ],
   },
   {
@@ -584,7 +601,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/YbQVFmtjEORastswVsal0g==/125344325567378.jpg',
     genre: 'Folk',
     tracks: [
-      { title: 'After 17', duration: '', description: '暂无版权' },
+      { title: 'After 17', duration: '', description: '暂无版权', neteaseId: 209314 },
     ],
   },
   {
@@ -594,11 +611,11 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/ZGffiDQZrGj5s_hnR1CNbg==/109951165566379710.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '以父之名', duration: '', description: '暂无版权' },
-      { title: '晴天', duration: '', description: '暂无版权' },
-      { title: '东风破', duration: '', description: '暂无版权' },
-      { title: '你听得到', duration: '', description: '暂无版权' },
-      { title: '她的睫毛', duration: '', description: '暂无版权' },
+      { title: '以父之名', duration: '', description: '暂无版权', neteaseId: 186018 },
+      { title: '晴天', duration: '', description: '暂无版权', neteaseId: 3339230677 },
+      { title: '东风破', duration: '', description: '暂无版权', neteaseId: 186011 },
+      { title: '你听得到', duration: '', description: '暂无版权', neteaseId: 186041 },
+      { title: '她的睫毛', duration: '', description: '暂无版权', neteaseId: 186043 },
     ],
   },
   {
@@ -608,10 +625,10 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/eDfuSni9ZWToHdqilVRI_w==/109951166698447900.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '半岛铁盒', duration: '', description: '暂无版权' },
-      { title: '暗号', duration: '', description: '暂无版权' },
-      { title: '爷爷泡的茶', duration: '', description: '暂无版权' },
-      { title: '回到过去', duration: '', description: '暂无版权' },
+      { title: '半岛铁盒', duration: '', description: '暂无版权', neteaseId: 186030 },
+      { title: '暗号', duration: '', description: '暂无版权', neteaseId: 186031 },
+      { title: '爷爷泡的茶', duration: '', description: '暂无版权', neteaseId: 186028 },
+      { title: '回到过去', duration: '', description: '暂无版权', neteaseId: 186027 },
     ],
   },
   {
@@ -621,8 +638,8 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/Mvv6oyi8XjVfAIk0Lg76aA==/109951165876268707.jpg',
     genre: 'Folk',
     tracks: [
-      { title: '太聪明', duration: '', description: '暂无版权' },
-      { title: '小步舞曲', duration: '', description: '暂无版权' },
+      { title: '太聪明', duration: '', description: '暂无版权', neteaseId: 209397 },
+      { title: '小步舞曲', duration: '', description: '暂无版权', neteaseId: 209400 },
     ],
   },
   {
@@ -632,12 +649,12 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/7R4UhE4MBErGHvI-dB3Rzg==/109951165606034156.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '爱在西元前', duration: '', description: '暂无版权' },
-      { title: '简单爱', duration: '', description: '暂无版权' },
-      { title: '忍者', duration: '', description: '暂无版权' },
-      { title: '开不了口', duration: '', description: '暂无版权' },
-      { title: '上海一九四三', duration: '', description: '暂无版权' },
-      { title: '安静', duration: '', description: '暂无版权' },
+      { title: '爱在西元前', duration: '', description: '暂无版权', neteaseId: 186004 },
+      { title: '简单爱', duration: '', description: '暂无版权', neteaseId: 186006 },
+      { title: '忍者', duration: '', description: '暂无版权', neteaseId: 186005 },
+      { title: '开不了口', duration: '', description: '暂无版权', neteaseId: 186007 },
+      { title: '上海一九四三', duration: '', description: '暂无版权', neteaseId: 186068 },
+      { title: '安静', duration: '', description: '暂无版权', neteaseId: 186015 },
     ],
   },
   {
@@ -647,10 +664,10 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/Gd-HAk9hKC85L0wNtfRs1g==/7946170535396804.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '星晴', duration: '', description: '暂无版权' },
-      { title: '龙卷风', duration: '', description: '暂无版权' },
-      { title: '反方向的钟', duration: '', description: '暂无版权' },
-      { title: '印地安老斑鸠', duration: '', description: '暂无版权' },
+      { title: '星晴', duration: '', description: '暂无版权', neteaseId: 186001 },
+      { title: '龙卷风', duration: '', description: '暂无版权', neteaseId: 186003 },
+      { title: '反方向的钟', duration: '', description: '暂无版权', neteaseId: 186002 },
+      { title: '印地安老斑鸠', duration: '', description: '暂无版权', neteaseId: 186013 },
     ],
   },
   {
@@ -660,7 +677,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/tCCrihOJLpMCDs--b0R8Xg==/109951163240612491.jpg',
     genre: 'Folk',
     tracks: [
-      { title: '还是会寂寞', duration: '', description: '暂无版权' },
+      { title: '还是会寂寞', duration: '', description: '暂无版权', neteaseId: 209478 },
     ],
   },
   {
@@ -670,7 +687,7 @@ export const albums: Album[] = [
     cover: 'https://p1.music.126.net/tMQXBMTy8pGjGggX1j0YNQ==/109951169389595068.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '普通朋友', duration: '', description: '暂无版权' },
+      { title: '普通朋友', duration: '', description: '暂无版权', neteaseId: 150623 },
     ],
   },
   {
@@ -680,7 +697,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/W6MDlem6_FsymbnxKc_BKQ==/109951171530948990.jpg',
     genre: 'Pop',
     tracks: [
-      { title: '红豆', duration: '', description: '暂无版权' },
+      { title: '红豆', duration: '', description: '暂无版权', neteaseId: 299936 },
     ],
   },
   {
@@ -690,7 +707,7 @@ export const albums: Album[] = [
     cover: 'https://p2.music.126.net/vcyUJw7mfEzzMCgbJry31w==/109951169507121139.jpg',
     genre: 'R&B',
     tracks: [
-      { title: '飞机场的 10:30', duration: '', description: '暂无版权' },
+      { title: '飞机场的 10:30', duration: '', description: '暂无版权', neteaseId: 150651 },
     ],
   },
 ];

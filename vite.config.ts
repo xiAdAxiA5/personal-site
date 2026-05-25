@@ -30,4 +30,19 @@ function obsidianWatchPlugin(): Plugin {
 export default defineConfig({
   plugins: [obsidianWatchPlugin(), react(), tailwindcss()],
   base: './',
+  server: {
+    proxy: {
+      '/api/netease': {
+        target: 'https://music.163.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/netease/, ''),
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq) => {
+            proxyReq.setHeader('Referer', 'https://music.163.com');
+            proxyReq.setHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
+          });
+        },
+      },
+    },
+  },
 })

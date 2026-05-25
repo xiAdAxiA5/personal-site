@@ -86,10 +86,10 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
           bg-gradient-to-t from-bg-light dark:from-bg-dark to-transparent
           pointer-events-none" />
 
-        {/* === Left / Right arrow buttons === */}
+        {/* Left / Right arrows — same vertical position, keyed to sidebar height */}
         <button
           onClick={goPrev}
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-20
+          className="absolute left-10 z-20
             p-2 rounded-xl
             bg-white/70 dark:bg-white/[0.04]
             border border-slate-200 dark:border-white/[0.06]
@@ -98,13 +98,14 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
             hover:bg-white dark:hover:bg-white/[0.08]
             hover:shadow-md transition-all duration-300
             backdrop-blur-sm"
+          style={{ top: 'calc((100vh - 4.5rem) / 2)', transform: 'translateY(-50%)' }}
           aria-label="Previous section"
         >
           <ChevronLeft size={20} />
         </button>
         <button
           onClick={goNext}
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-20
+          className="absolute right-10 z-20
             p-2 rounded-xl
             bg-white/70 dark:bg-white/[0.04]
             border border-slate-200 dark:border-white/[0.06]
@@ -113,6 +114,7 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
             hover:bg-white dark:hover:bg-white/[0.08]
             hover:shadow-md transition-all duration-300
             backdrop-blur-sm"
+          style={{ top: 'calc((100vh - 4.5rem) / 2)', transform: 'translateY(-50%)' }}
           aria-label="Next section"
         >
           <ChevronRight size={20} />

@@ -169,11 +169,32 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   // Cleanup on unmount
   useEffect(() => { return () => { audioRef.current.pause(); }; }, []);
 
-  const playTrack = useCallback((track: Track) => {
-    if (!track.src) return;
+  const playTrack = useCallback(async (track: Track) => {
     const audio = audioRef.current;
-    if (audio.src !== window.location.origin + track.src) audio.src = track.src;
-    audio.play().catch(() => {});
+    if (track.src) {
+      if (audio.src !== window.location.origin + track.src) {
+        audio.src = track.src;
+      }
+      audio.play().catch(() => {});
+      return;
+    }
+    if (track.neteaseId) {
+      try {
+        const res = await fetch(
+          `/api/netease/api/song/enhance/player/url/v1?ids=[${track.neteaseId}]&level=lossless&encodeType=mp3`
+        );
+        const data = await res.json();
+        const url = data?.data?.[0]?.url;
+        if (url) {
+          audio.src = url;
+          audio.play().catch(() => {});
+          return;
+        }
+      } catch {}
+      // Fallback: try outer URL
+      audio.src = `https://music.163.com/song/media/outer/url?id=${track.neteaseId}.mp3`;
+      audio.play().catch(() => {});
+    }
   }, []);
 
   const handleTogglePlay = () => {
@@ -215,7 +236,16 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   const handleToggleMute = () => { audioRef.current.muted = !audioRef.current.muted; };
 
-  const handleSelect = (album: Album) => { setSelected(album); setView('detail'); setCurrentTrack(0); };
+  const handleSelect = (album: Album) => {
+    audioRef.current.pause();
+    audioRef.current.src = '';
+    setSelected(album);
+    setView('detail');
+    setCurrentTrack(0);
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(false);
+  };
   const handleBack = () => { setView('browsing'); };
 
   const handleClose = () => {
