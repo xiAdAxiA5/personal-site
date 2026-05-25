@@ -19,7 +19,7 @@ export default function GameSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={springGentle}
-          className="text-3xl md:text-4xl font-bold text-center mb-[95px]"
+          className="text-3xl md:text-4xl font-bold text-center mb-[120px]"
         >
           游戏
         </motion.h2>

@@ -60,15 +60,14 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
 
   return (
     <div className="relative w-full
-      h-[calc(100vh-4rem)] md:h-[calc(100vh-4.5rem)]
-      flex flex-col md:flex-row items-center
+      flex flex-col md:flex-row items-start
       bg-bg-light dark:bg-bg-dark transition-colors duration-500">
 
       {/* ===== LEFT SIDEBAR: Windmill ===== */}
       <div
         ref={sidebarRef}
         className="hidden md:flex shrink-0 items-center justify-center
-        w-[260px] lg:w-[300px] h-full
+        w-[260px] lg:w-[300px] h-[calc(100vh-4.5rem)] sticky top-16
         border-r border-slate-200 dark:border-white/[0.04]">
         <WindmillNavigator
           sections={sections}
@@ -78,7 +77,7 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
       </div>
 
       {/* ===== CONTENT AREA ===== */}
-      <div className="flex-1 w-full h-full overflow-hidden relative">
+      <div className="flex-1 w-full relative">
         {/* Fade edges */}
         <div className="absolute inset-x-0 top-0 h-10 z-10
           bg-gradient-to-b from-bg-light dark:from-bg-dark to-transparent
@@ -120,13 +119,12 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
         </button>
 
         {/* Scrollable content */}
-        <div className="h-full overflow-y-auto scrollbar-hide scroll-smooth
-          px-10 md:px-14 lg:px-16">
+        <div className="px-10 md:px-14 lg:px-16">
           <AnimatePresence mode="wait">
             <motion.div
               key={sections[activeIndex].id}
               {...fadeIn}
-              className="min-h-full flex items-center justify-center py-6"
+              className="flex items-center justify-center py-6"
             >
               {sections[activeIndex].content}
             </motion.div>

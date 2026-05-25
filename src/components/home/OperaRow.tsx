@@ -23,7 +23,7 @@ export default function WatchSection() {
     <section className="pt-[76px] pb-[76px] px-4">
       <div className="max-w-6xl mx-auto">
         {/* Category nav as header */}
-        <div className="flex items-center justify-center gap-4 mb-[70px]">
+        <div className="flex items-center justify-center gap-4 mb-[95px]">
           <motion.button
             onClick={() => {
               const idx = categories.findIndex((c) => c.key === activeCat);
