@@ -1,14 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
-import { obsidianNotes } from '../../data/obsidian-knowledge';
+import { blogPosts } from '../../data/blog';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 
 const MotionLink = motion.create(Link);
 
 export default function BlogDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const post = obsidianNotes.find((p) => p.slug === slug);
+  const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
     return (

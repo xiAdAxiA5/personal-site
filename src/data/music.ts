@@ -47,7 +47,7 @@ export const albums: Album[] = [
   { id: 'single-08', title: '第三人称', artist: 'Hush', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '第三人称', duration: '', description: '暂无版权' }] },
   { id: 'single-09', title: '爱错', artist: '王力宏', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '爱错', duration: '', description: '暂无版权' }] },
   { id: 'single-10', title: '我在纽约打电话给你', artist: '魏如萱', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '我在纽约打电话给你', duration: '', description: '暂无版权' }] },
-  { id: 'single-11', title: '后知后觉', artist: '冯允谦', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '后知后觉', duration: '', description: '暂无版权' }] },
+  { id: 'single-11', title: '后知后觉', artist: '关浩德', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '后知后觉', duration: '', description: '暂无版权' }] },
   { id: 'single-12', title: '你是我的风景', artist: '何洁', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '你是我的风景', duration: '', description: '暂无版权' }] },
   { id: 'single-13', title: '想自由', artist: '林宥嘉', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '想自由', duration: '', description: '暂无版权' }] },
   { id: 'single-14', title: '刻在我心底的名字', artist: '卢广仲', cover: '', genre: 'Pop', type: 'single', tracks: [{ title: '刻在我心底的名字', duration: '', description: '暂无版权' }] },

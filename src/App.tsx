@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { FollowerProvider } from './context/FollowerContext';
+import { MusicProvider } from './context/MusicContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <FollowerProvider>
+        <MusicProvider>
         <HashRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -26,6 +28,7 @@ export default function App() {
           </Route>
         </Routes>
         </HashRouter>
+        </MusicProvider>
       </FollowerProvider>
     </ThemeProvider>
   );

@@ -59,8 +59,8 @@ export const watchList: Media[] = [
   // ===== 动画 (chronological) =====
   { id: 'anime-deathnote', title: '死亡笔记', creator: '大场鸫/小畑健', cover: 'https://m.media-amazon.com/images/M/MV5BYTgyZDhmMTEtZDFhNi00MTc4LTg3NjUtYWJlNGE5Mzk2NzMxXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
   { id: 'anime-kon', title: '轻音少女', creator: '山田尚子', cover: 'https://m.media-amazon.com/images/M/MV5BNjRjYTc2ZDctNTlhNS00NTdiLTllNjItMWNjMzlmNWQ2MGEwXkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
-  { id: 'anime-jojo1', title: 'JOJO的奇妙冒险 幻影血脉', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx666-kYzXvKlUbeMP.jpg', notes: '', category: 'anime' },
-  { id: 'anime-jojo2', title: 'JOJO的奇妙冒险 战斗潮流', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx14719-VT5dRzTBSZ0w.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo1', title: 'JOJO的奇妙冒险 幻影血脉', creator: '荒木飞吕彦', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx14719-VT5dRzTBSZ0w.jpg', notes: '', category: 'anime' },
+  { id: 'anime-jojo2', title: 'JOJO的奇妙冒险 战斗潮流', creator: '荒木飞吕彦', cover: '/covers/jojo2-battle.webp', notes: '', category: 'anime' },
   { id: 'anime-aot', title: '进击的巨人', creator: '谏山创', cover: 'https://m.media-amazon.com/images/M/MV5BZjliODY5MzQtMmViZC00MTZmLWFhMWMtMjMwM2I3OGY1MTRiXkEyXkFqcGc@._V1_QL75_UY562_CR9,0,380,562_.jpg', notes: '', category: 'anime' },
   { id: 'anime-tamako', title: '玉子市场', creator: '山田尚子', cover: 'https://m.media-amazon.com/images/M/MV5BOGZmZjU2ZDItYTk3MC00YWQwLWJhNDUtNDYzYWYzMjRhMTE1XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
   { id: 'anime-parasyte', title: '寄生兽', creator: '岩明均', cover: 'https://m.media-amazon.com/images/M/MV5BMzg2YjA0NGYtYjQwMS00MDQyLWFlNWMtODVhNTBkYWIyNjE1XkEyXkFqcGc@._V1_SX300.jpg', notes: '', category: 'anime' },
