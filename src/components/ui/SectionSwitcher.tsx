@@ -30,12 +30,16 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
   // Refs for windmill containers — native wheel to block page scroll
   const sidebarRef = useRef<HTMLDivElement>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
+  const wheelThrottleRef = useRef(0);
 
   // Native wheel listeners (passive: false so preventDefault works)
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      const now = Date.now();
+      if (now - wheelThrottleRef.current < 600) return;
+      wheelThrottleRef.current = now;
       e.deltaY > 0 ? goNext() : goPrev();
     };
     const sidebar = sidebarRef.current;
@@ -98,7 +102,7 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
             hover:bg-white dark:hover:bg-white/[0.08]
             hover:shadow-md transition-all duration-300
             backdrop-blur-sm"
-          style={{ top: 'calc((100vh - 4.5rem) / 2)', transform: 'translateY(-50%)' }}
+          style={{ top: '50vh', transform: 'translateY(calc(-50% - 2.25rem))' }}
           aria-label="Previous section"
         >
           <ChevronLeft size={20} />
@@ -114,7 +118,7 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
             hover:bg-white dark:hover:bg-white/[0.08]
             hover:shadow-md transition-all duration-300
             backdrop-blur-sm"
-          style={{ top: 'calc((100vh - 4.5rem) / 2)', transform: 'translateY(-50%)' }}
+          style={{ top: '50vh', transform: 'translateY(calc(-50% - 2.25rem))' }}
           aria-label="Next section"
         >
           <ChevronRight size={20} />

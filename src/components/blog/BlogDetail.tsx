@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
 import { blogPosts } from '../../data/blog';
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
+import { ArrowLeft, Calendar } from 'lucide-react';
 
 const MotionLink = motion.create(Link);
 
@@ -44,17 +44,17 @@ export default function BlogDetail() {
         返回博客
       </MotionLink>
 
-      <header className="mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold dark:text-white mb-4">{post.title}</h1>
-        <div className="flex items-center gap-4 text-sm text-gray-400">
-          <span className="flex items-center gap-1"><Calendar size={14} />{post.date}</span>
-          <span className="flex items-center gap-1"><Clock size={14} />{post.readTime} min read</span>
-        </div>
-      </header>
-
-      <div className="prose prose-gray dark:prose-invert max-w-none bg-surface-light dark:bg-surface-dark rounded-2xl p-8 border border-gray-100 dark:border-border-dark">
-        <ReactMarkdown>{post.content}</ReactMarkdown>
+      <div className="flex items-center gap-4 text-sm text-gray-400 mb-10">
+        <span className="flex items-center gap-1"><Calendar size={14} />{post.date}</span>
       </div>
+
+      {post.content ? (
+        <div className="prose prose-gray dark:prose-invert max-w-none bg-surface-light dark:bg-surface-dark rounded-2xl p-8 border border-gray-100 dark:border-border-dark">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </div>
+      ) : (
+        <div className="text-center py-16 text-gray-300 dark:text-gray-600 italic">暂无正文</div>
+      )}
     </motion.article>
   );
 }

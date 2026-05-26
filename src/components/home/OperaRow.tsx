@@ -99,7 +99,7 @@ export default function WatchSection() {
                   <img
                     src={selectedItem.cover}
                     alt={selectedItem.title}
-                    className="w-16 h-22 object-cover rounded-lg shadow-md"
+                    className="w-16 h-24 object-cover rounded-lg shadow-md"
                   />
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg font-bold dark:text-white">{selectedItem.title}</h3>

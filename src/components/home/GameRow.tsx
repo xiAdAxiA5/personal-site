@@ -81,7 +81,7 @@ export default function GameSection() {
                 className="bg-surface-light dark:bg-gray-800 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl"
               >
                 <div className="flex items-center gap-4 p-5 border-b border-gray-100 dark:border-gray-700">
-                  <img src={selectedItem.cover} alt={selectedItem.title} className="w-16 h-22 object-cover rounded-lg shadow-md" />
+                  <img src={selectedItem.cover} alt={selectedItem.title} className="w-16 h-24 object-cover rounded-lg shadow-md" />
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg font-bold dark:text-white">{selectedItem.title}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{selectedItem.creator}</p>

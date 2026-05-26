@@ -8,6 +8,8 @@ interface MusicCtx {
   setView: (v: 'browsing' | 'detail' | 'playing') => void;
   selected: Album | null;
   setSelected: (a: Album | null) => void;
+  playingAlbum: Album | null;
+  playingTrackIdx: number;
   currentTrack: number;
   setCurrentTrack: (i: number) => void;
   currentTime: number;
@@ -21,6 +23,7 @@ interface MusicCtx {
   setHeadingVisible: (v: boolean) => void;
   headingRef: any;
   playTrack: (track: Track) => void;
+  playAlbumTrack: (album: Album, index: number) => void;
   handleTogglePlay: () => void;
   handleMiniTogglePlay: () => void;
   handleTrackClick: (index: number) => void;
@@ -62,6 +65,8 @@ function parseLRC(raw: string): LyricLine[] {
 export function MusicProvider({ children }: { children: ReactNode }) {
   const [view, setView] = useState<'browsing' | 'detail' | 'playing'>('browsing');
   const [selected, setSelected] = useState<Album | null>(null);
+  const [playingAlbum, setPlayingAlbum] = useState<Album | null>(null);
+  const [playingTrackIdx, setPlayingTrackIdx] = useState(0);
   const [currentTrack, setCurrentTrack] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -98,20 +103,17 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     const onVol = () => { setVolumeState(audio.volume); setIsMuted(audio.muted); };
     const onPlay = () => setIsPlaying(true);
     const onPause = () => setIsPlaying(false);
-    const onEnd = () => setIsPlaying(false);
     audio.addEventListener('timeupdate', onTime);
     audio.addEventListener('loadedmetadata', onMeta);
     audio.addEventListener('volumechange', onVol);
     audio.addEventListener('play', onPlay);
     audio.addEventListener('pause', onPause);
-    audio.addEventListener('ended', onEnd);
     return () => {
       audio.removeEventListener('timeupdate', onTime);
       audio.removeEventListener('loadedmetadata', onMeta);
       audio.removeEventListener('volumechange', onVol);
       audio.removeEventListener('play', onPlay);
       audio.removeEventListener('pause', onPause);
-      audio.removeEventListener('ended', onEnd);
     };
   }, []);
 
@@ -150,7 +152,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     fetch(track.lrc).then(r => r.text()).then(raw => setLyrics(parseLRC(raw))).catch(() => setLyrics([]));
   }, [selected, currentTrack]);
 
-  // Auto-advance
+  // Auto-advance (also handles ended state)
   useEffect(() => {
     const audio = audioRef.current;
     const onEnded = () => {
@@ -158,8 +160,12 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       const next = currentTrack + 1;
       if (next < selected.tracks.length) {
         setCurrentTrack(next);
+        setPlayingAlbum(selected);
+        setPlayingTrackIdx(next);
         const track = selected.tracks[next];
         if (track.src) { audio.src = track.src; audio.play().catch(() => {}); }
+      } else {
+        setIsPlaying(false);
       }
     };
     audio.addEventListener('ended', onEnded);
@@ -197,12 +203,26 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const playAlbumTrack = useCallback((album: Album, index: number) => {
+    const track = album.tracks[index];
+    if (!track) return;
+    setSelected(album);
+    setCurrentTrack(index);
+    setPlayingAlbum(album);
+    setPlayingTrackIdx(index);
+    playTrack(track);
+  }, [playTrack]);
+
   const handleTogglePlay = () => {
     const audio = audioRef.current;
     if (!selected) return;
     if (isPlaying) { audio.pause(); }
     else {
-      if (!audio.src || audio.paused) playTrack(selected.tracks[currentTrack]);
+      if (!audio.src || audio.paused) {
+        playTrack(selected.tracks[currentTrack]);
+        setPlayingAlbum(selected);
+        setPlayingTrackIdx(currentTrack);
+      }
       if (view !== 'playing') setView('playing');
     }
   };
@@ -215,7 +235,13 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   const handleTrackClick = (index: number) => {
     if (!selected) return;
+    if (playingAlbum?.id === selected.id && index === playingTrackIdx && isPlaying) {
+      setView('playing');
+      return;
+    }
     setCurrentTrack(index);
+    setPlayingAlbum(selected);
+    setPlayingTrackIdx(index);
     playTrack(selected.tracks[index]);
     setView('playing');
   };
@@ -224,6 +250,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (!selected) return;
     const prev = currentTrack > 0 ? currentTrack - 1 : selected.tracks.length - 1;
     setCurrentTrack(prev);
+    setPlayingAlbum(selected);
+    setPlayingTrackIdx(prev);
     playTrack(selected.tracks[prev]);
   };
 
@@ -231,20 +259,19 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     if (!selected) return;
     const next = currentTrack + 1 < selected.tracks.length ? currentTrack + 1 : 0;
     setCurrentTrack(next);
+    setPlayingAlbum(selected);
+    setPlayingTrackIdx(next);
     playTrack(selected.tracks[next]);
   };
 
   const handleToggleMute = () => { audioRef.current.muted = !audioRef.current.muted; };
 
   const handleSelect = (album: Album) => {
-    audioRef.current.pause();
-    audioRef.current.src = '';
     setSelected(album);
     setView('detail');
     setCurrentTrack(0);
     setCurrentTime(0);
     setDuration(0);
-    setIsPlaying(false);
   };
   const handleBack = () => { setView('browsing'); };
 
@@ -252,6 +279,8 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     audioRef.current.pause();
     audioRef.current.src = '';
     setSelected(null);
+    setPlayingAlbum(null);
+    setPlayingTrackIdx(0);
     setView('browsing');
     setLyrics([]);
     setDuration(0);
@@ -267,10 +296,11 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   return (
     <MusicContext.Provider value={{
-      view, setView, selected, setSelected, currentTrack, setCurrentTrack,
+      view, setView, selected, setSelected, playingAlbum, playingTrackIdx,
+      currentTrack, setCurrentTrack,
       currentTime, duration, volume, isMuted, isPlaying,
       lyrics, lyricText, headingVisible, setHeadingVisible, headingRef,
-      playTrack, handleTogglePlay, handleMiniTogglePlay, handleTrackClick,
+      playTrack, playAlbumTrack, handleTogglePlay, handleMiniTogglePlay, handleTrackClick,
       handlePrevTrack, handleNextTrack, handleToggleMute,
       handleSelect, handleBack, handleClose,
       seekBarProps, volumeBarProps,

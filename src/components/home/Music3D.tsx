@@ -29,9 +29,7 @@ export default function MusicSection() {
     const aquarium = albums.find((a) => a.id === 'jude-aquarium');
     if (!aquarium || !aquarium.tracks[0].src) return;
     if (ctx.selected) return;
-    ctx.setSelected(aquarium);
-    ctx.setCurrentTrack(0);
-    setTimeout(() => ctx.playTrack(aquarium.tracks[0]), 500);
+    setTimeout(() => ctx.playAlbumTrack(aquarium, 0), 500);
   }, []);
 
   return (
