@@ -9,14 +9,8 @@ interface Message {
   date: string;
 }
 
-const sampleMessages: Message[] = [
-  { id: 1, name: '访客小明', content: '很棒的网站！设计和交互都很喜欢。', date: '2025-06-15' },
-  { id: 2, name: '开发者小红', content: '关注你的博客很久了，学到了很多。', date: '2025-06-10' },
-  { id: 3, name: '设计师小李', content: 'UI 设计很有品味，简约但不简单。', date: '2025-05-28' },
-];
-
 export default function Guestbook() {
-  const [messages, setMessages] = useState<Message[]>(sampleMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
 

@@ -11,8 +11,6 @@ export interface SectionDef {
   btnRing: string;
   bladeLight: string;
   bladeDark: string;
-  arrowColorLight: string;
-  arrowColorDark: string;
 }
 
 interface WindmillNavigatorProps {

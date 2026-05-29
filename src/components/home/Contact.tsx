@@ -1,14 +1,13 @@
 import { useState } from 'react';
+import { type ComponentType } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Send, Copy, Check } from 'lucide-react';
 
 function WechatIcon({ size = 20, className }: { size?: number; className?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
-      <path d="M8.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="currentColor" />
-      <path d="M15.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="currentColor" />
-      <path d="M21 13.5c0 3.038-2.462 5.5-5.5 5.5-.276 0-.544-.02-.806-.06A5.995 5.995 0 0 1 4.5 16c0-.548.074-1.08.212-1.588A4.502 4.502 0 0 1 8.5 5.5C12.09 5.5 15 8.41 15 12c0 .118-.004.235-.01.352A5.49 5.49 0 0 1 21 13.5Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
-      <path d="M5.5 14.5c-1.933 0-3.5-1.567-3.5-3.5S3.567 7.5 5.5 7.5c.237 0 .467.024.69.07A3.997 3.997 0 0 1 12.5 6a3.997 3.997 0 0 1 3.955 3.662A2.998 2.998 0 0 1 18.5 11.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M8.69 3.46C4.84 3.46 1.72 6.2 1.72 9.58c0 1.87 1.02 3.55 2.6 4.66l-.67 2.02 2.35-1.16c.8.22 1.65.34 2.53.34.34 0 .66-.02.98-.06-.12-.4-.2-.82-.2-1.24 0-3.4 3.2-6.16 7.14-6.16.3 0 .6.02.9.05A5.8 5.8 0 0 0 8.69 3.46zm-3.02 3.6c.4 0 .72.32.72.72a.72.72 0 1 1-1.44 0c0-.4.32-.72.72-.72zm4.5 0c.4 0 .72.32.72.72a.72.72 0 1 1-1.44 0c0-.4.32-.72.72-.72z" />
+      <path d="M16.86 9.88c-3.37 0-6.1 2.34-6.1 5.22s2.73 5.22 6.1 5.22c.67 0 1.32-.1 1.94-.3l1.88.93-.53-1.62A4.6 4.6 0 0 0 22 15.1c0-2.88-2.73-5.22-6.1-5.22zm-2.95 2.9c.32 0 .58.26.58.58a.58.58 0 1 1-1.16 0c0-.32.26-.58.58-.58zm4.5 0c.32 0 .57.26.57.58a.58.58 0 1 1-1.15 0c0-.32.25-.58.58-.58z" />
     </svg>
   );
 }
@@ -61,11 +60,12 @@ export default function Contact() {
 
 function MiniContact({
   icon: Icon,
+  label,
   displayValue,
   copied,
   onCopy,
 }: {
-  icon: typeof Mail;
+  icon: ComponentType<{ size?: number; className?: string }>;
   label: string;
   displayValue: string;
   copied: string | null;
@@ -93,6 +93,7 @@ function MiniContact({
             transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
             className="absolute -top-12 left-1/2 -translate-x-1/2 bg-primary text-white text-xs rounded-lg px-3 py-1.5 shadow-lg shadow-primary/20 whitespace-nowrap flex items-center gap-1.5"
           >
+            <span className="opacity-60">{label}</span>
             <span>{displayValue}</span>
             <Copy size={11} className="opacity-60" />
           </motion.div>
