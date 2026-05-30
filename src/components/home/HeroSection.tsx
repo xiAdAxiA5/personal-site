@@ -44,7 +44,7 @@ export default function HeroSection() {
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ ...springGentle, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+          className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
         >
           {profile.name} {profile.nameEn}
         </motion.h1>

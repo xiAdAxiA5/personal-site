@@ -30,7 +30,7 @@ export default function GameSection() {
               <p className="text-xs text-gray-300 dark:text-gray-600 italic">coming soon</p>
             </div>
           ) : (
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-2.5 pr-1">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2.5 pr-1">
               {items.map((item, i) => (
                 <motion.button
                   key={item.id}

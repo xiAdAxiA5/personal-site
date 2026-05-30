@@ -93,7 +93,7 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
         {/* Left / Right arrows — same vertical position, keyed to sidebar height */}
         <button
           onClick={goPrev}
-          className="absolute left-10 z-20
+          className="hidden md:block absolute left-10 z-20
             p-2 rounded-xl
             bg-white/70 dark:bg-white/[0.04]
             border border-slate-200 dark:border-white/[0.06]
@@ -109,7 +109,7 @@ export default function SectionSwitcher({ sections }: SectionSwitcherProps) {
         </button>
         <button
           onClick={goNext}
-          className="absolute right-10 z-20
+          className="hidden md:block absolute right-10 z-20
             p-2 rounded-xl
             bg-white/70 dark:bg-white/[0.04]
             border border-slate-200 dark:border-white/[0.06]

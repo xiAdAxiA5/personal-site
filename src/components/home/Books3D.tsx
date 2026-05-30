@@ -53,9 +53,9 @@ export default function BookShelf() {
       )}
 
       {/* ===== Literature | Web Novels ===== */}
-      <div className="flex gap-0">
-        {/* Literature (left) */}
-        <div className="flex-1 min-w-0 pr-4 md:pr-6">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-0">
+        {/* Literature (top on mobile / left on desktop) */}
+        <div className="flex-1 min-w-0 md:pr-4 lg:pr-6">
           <p className="text-[11px] font-medium tracking-[0.12em] uppercase mb-4
             text-muted-light/60 dark:text-muted-dark/50">
             Literature
@@ -63,13 +63,13 @@ export default function BookShelf() {
           <BookGrid items={literature} onClick={setSelected} />
         </div>
 
-        {/* Vertical divider */}
-        <div className="shrink-0 flex flex-col items-center">
-          <div className="w-px flex-1 bg-gradient-to-b from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
+        {/* Divider — horizontal on mobile, vertical on desktop */}
+        <div className="shrink-0 flex items-center justify-center md:flex-col">
+          <div className="h-px w-full md:w-px md:h-full md:flex-1 bg-gradient-to-r md:bg-gradient-to-b from-transparent via-gray-200 dark:via-gray-700 to-transparent" />
         </div>
 
-        {/* Web Novels (right) */}
-        <div className="flex-1 min-w-0 pl-4 md:pl-6">
+        {/* Web Novels (bottom on mobile / right on desktop) */}
+        <div className="flex-1 min-w-0 md:pl-4 lg:pl-6">
           <p className="text-[11px] font-medium tracking-[0.12em] uppercase mb-4
             text-muted-light/60 dark:text-muted-dark/50">
             Web Novels

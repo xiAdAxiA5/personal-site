@@ -71,13 +71,16 @@ function MiniContact({
   copied: string | null;
   onCopy: (text: string) => void;
 }) {
-  const [hovered, setHovered] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   return (
     <button
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={() => onCopy(displayValue)}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onClick={() => {
+        setShowTooltip((prev) => !prev);
+        onCopy(displayValue);
+      }}
       className="relative w-12 h-12 rounded-full bg-surface-light dark:bg-surface-dark border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-primary/30 hover:text-primary transition-colors cursor-pointer"
     >
       <Icon size={20} className="text-gray-400 hover:text-primary transition-colors" />
@@ -85,7 +88,7 @@ function MiniContact({
         <Check size={14} className="absolute -top-1 -right-1 text-green-500 bg-white dark:bg-gray-800 rounded-full p-0.5" />
       )}
       <AnimatePresence>
-        {hovered && (
+        {showTooltip && (
           <motion.div
             initial={{ opacity: 0, y: 8, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}

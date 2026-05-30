@@ -95,9 +95,9 @@ export default function GlobalPlayer() {
             {/* Expanded: full player */}
             {expanded && (
               <>
-                <div className={`flex items-center gap-5 px-6 ${twoLine ? 'h-[5.5rem]' : 'h-20'}`}>
+                <div className={`flex items-center gap-3 sm:gap-5 px-3 sm:px-6 ${twoLine ? 'h-[5.5rem]' : 'h-20'}`}>
                   {/* Left: cover + track info */}
-                  <div className="flex items-center gap-3 shrink-0 w-[200px] cursor-pointer" onClick={() => ctx.setView('playing')}>
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0 w-[130px] sm:w-[200px] cursor-pointer" onClick={() => ctx.setView('playing')}>
                     <img src={displayAlbum.cover} alt={displayAlbum.title} className="w-14 h-14 rounded-xl object-cover shadow-sm shrink-0" />
                     <div className="min-w-0">
                       <p className="text-base font-semibold dark:text-white truncate leading-tight">{track.title}</p>

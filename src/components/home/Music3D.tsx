@@ -36,7 +36,7 @@ export default function MusicSection() {
     <section className="pt-[76px] pb-[76px] w-full relative">
       <AnimatePresence>
         {ctx.view === 'playing' && (
-          <motion.div {...slideUp} className="absolute top-[116px] left-[44px] z-30">
+          <motion.div {...slideUp} className="absolute top-[116px] left-2 md:left-[44px] z-30">
             <motion.button onClick={ctx.handleBack} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200/50 dark:border-gray-700/50 text-sm text-gray-500 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-white dark:hover:bg-gray-700 transition-all shadow-sm">
               <ArrowLeft size={16} /> 返回
@@ -55,14 +55,14 @@ export default function MusicSection() {
         Music
       </motion.h2>
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 md:px-6">
         <div
-          className="relative flex items-start"
+          className="relative flex flex-col md:flex-row items-center md:items-start"
           style={{
             gap: 'var(--gap)',
-            ['--tt' as string]: '288px',
+            ['--tt' as string]: 'clamp(200px, 50vw, 288px)',
             ['--gap' as string]: '48px',
-            ['--dth' as string]: '560px',
+            ['--dth' as string]: 'clamp(380px, 70vh, 560px)',
             ['--ofs' as string]: '33px',
           } as React.CSSProperties}
         >

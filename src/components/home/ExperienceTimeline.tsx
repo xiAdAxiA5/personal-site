@@ -43,7 +43,7 @@ export default function ExperienceTimeline() {
               </div>
 
               {/* Content */}
-              <div className={`ml-20 md:ml-0 md:w-[calc(50%-2rem)] ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+              <div className={`ml-14 md:ml-0 md:w-[calc(50%-2rem)] ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
                 <motion.div
                   whileHover={{ y: -2, scale: 1.01 }}
                   className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 border border-gray-100 dark:border-border-dark shadow-sm hover:shadow-md transition-shadow"
