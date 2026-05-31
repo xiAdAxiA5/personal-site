@@ -33,8 +33,9 @@ async function getGameNames(appids: number[]): Promise<Record<number, string>> {
 }
 
 export default async function handler(request: Request): Promise<Response> {
-  const steamKey = process.env.STEAM_API_KEY;
-  const steamId = process.env.STEAM_ID;
+  const env = (globalThis as any).process?.env ?? {};
+  const steamKey: string = env.STEAM_API_KEY;
+  const steamId: string = env.STEAM_ID;
 
   if (!steamKey || !steamId) {
     return Response.json(
