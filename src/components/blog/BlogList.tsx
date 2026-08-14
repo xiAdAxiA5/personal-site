@@ -24,7 +24,7 @@ export default function BlogList() {
     <div className="max-w-2xl mx-auto px-4 py-16">
       <div className="mb-14">
         <h1 className="text-3xl font-bold dark:text-white mb-2">博客</h1>
-        <p className="text-sm text-gray-400 dark:text-gray-500">其实是各种胡思乱想</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500">其实是各种胡思乱想，后期计划把obsidian仓库接入到这里</p>
       </div>
 
       <input

@@ -36,11 +36,11 @@ export const experiences: Experience[] = [
   {
     id: '3',
     type: 'education',
-    title: '特种医学 硕士',
+    title: '特种医学 硕士（放弃入学）',
     organization: '温州医科大学',
     location: '',
     startDate: '2026-09',
-    endDate: '2029-06',
+    endDate: '',
     description: '',
     highlights: [],
   },

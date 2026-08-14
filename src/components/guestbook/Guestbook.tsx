@@ -35,7 +35,7 @@ export default function Guestbook() {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-4xl md:text-5xl font-bold mb-4">留言板</h1>
-        <p className="text-gray-400 dark:text-gray-500 mb-12">留下你的足迹，分享你的想法</p>
+        <p className="text-gray-400 dark:text-gray-500 mb-12">留下你的足迹，分享你的想法（暂时没有接入后端，所以我是看不到留言的）</p>
 
         {/* Form */}
         <div className="bg-surface-light dark:bg-surface-dark rounded-2xl border border-gray-100 dark:border-border-dark p-6 mb-8">

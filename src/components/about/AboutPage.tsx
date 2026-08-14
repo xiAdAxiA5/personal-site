@@ -10,7 +10,7 @@ export default function AboutPage() {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-4xl md:text-5xl font-bold mb-4">关于我</h1>
-        <p className="text-gray-400 dark:text-gray-500 mb-12">了解更多关于我的故事</p>
+        <p className="text-gray-400 dark:text-gray-500 mb-12">了解更多关于我的故事（计划把我的所有人生经历、情绪、感悟等事无巨细地放上来）</p>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="md:col-span-1">
@@ -30,7 +30,7 @@ export default function AboutPage() {
                   <MapPin size={14} /> 河北，中国
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                  <Briefcase size={14} /> 医学硕士
+                  <Briefcase size={14} /> 医学学士
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
                   <Heart size={14} /> 阅读 · 对话 · 思考

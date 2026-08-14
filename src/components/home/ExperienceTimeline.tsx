@@ -49,7 +49,7 @@ export default function ExperienceTimeline() {
                   className="bg-surface-light dark:bg-surface-dark rounded-xl p-6 border border-gray-100 dark:border-border-dark shadow-sm hover:shadow-md transition-shadow"
                 >
                   <span className="text-xs font-medium text-primary uppercase tracking-wider">
-                    {exp.startDate} — {exp.endDate}
+                    {exp.startDate}{exp.endDate ? ` — ${exp.endDate}` : ''}
                   </span>
                   <h3 className="text-lg font-bold mt-1 dark:text-white">{exp.organization}</h3>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">
